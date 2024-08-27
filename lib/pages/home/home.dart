@@ -94,7 +94,7 @@ class Home extends StatelessWidget {
               SizedBox(
                 height: 70.0,
               ),
-              WebsiteAd(),
+              // WebsiteAd(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 28.0),
                 child: PortfolioStats(),

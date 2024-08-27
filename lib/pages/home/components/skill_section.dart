@@ -58,14 +58,10 @@ class SkillSection extends StatelessWidget {
                 Expanded(
                   flex: ScreenHelper.isMobile(context) ? 0 : 2,
                   child: ClipRRect(
-                  
                     borderRadius: BorderRadius.circular(70.0),
-                    
                     child: Image.asset(
-                      
                       "assets/person_small.png",
                       width: 300.0,
-                      
                     ),
                   ),
                 ),
@@ -75,11 +71,14 @@ class SkillSection extends StatelessWidget {
                 Expanded(
                   flex: ScreenHelper.isMobile(context) ? 0 : 4,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        height: 20.0,
+                      ),
                       Text(
-                        "SKILLS",
+                        "Highlighted skills",
                         style: GoogleFonts.oswald(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,
@@ -88,65 +87,12 @@ class SkillSection extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 10.0,
+                        height: 20.0,
                       ),
-                      Text(
-                        "some of my highlited skills",
-                        style: TextStyle(
-                          color: kCaptionColor,
-                          height: 1.5,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Column(
-                        children: skills
-                            .map(
-                              (skill) => Container(
-                                margin: EdgeInsets.only(bottom: 15.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: skill.percentage,
-                                      child: Container(
-                                        padding: EdgeInsets.only(left: 10.0),
-                                        alignment: Alignment.centerLeft,
-                                        height: 38.0,
-                                        child: Text(skill.skill),
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Expanded(
-                                      // remaining (blank part)
-                                      flex: 100 - skill.percentage,
-                                      child: Divider(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Text(
-                                      "${skill.percentage}%",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      )
+                      SkillsSection(),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           );
@@ -155,3 +101,94 @@ class SkillSection extends StatelessWidget {
     );
   }
 }
+
+class SkillsSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SkillCard(label: 'Android Dev', icon: Icons.android),
+            SkillCard(label: 'Web Dev', icon: Icons.web),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SkillCard(label: 'iOS Dev', icon: Icons.apple),
+            SkillCard(label: 'Desktop Dev', icon: Icons.desktop_windows),
+          ],
+        ),
+        SizedBox(height: 30),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          alignment: WrapAlignment.center,
+          children: [
+            IconSkillCard(label: 'Flutter'),
+            IconSkillCard(label: 'Dart'),
+            IconSkillCard(label: 'Laravel'),
+            IconSkillCard(label: 'JS'),
+            IconSkillCard(label: 'Java'),
+            IconSkillCard(label: 'Python'),
+            IconSkillCard(label: 'Docker'),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class SkillCard extends StatelessWidget {
+  final String label;
+  final IconData icon;
+
+  SkillCard({this.label, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+      decoration: BoxDecoration(
+        color: Color(0xFF424657),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: Colors.white),
+          SizedBox(width: 8.0),
+          Text(
+            label,
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class IconSkillCard extends StatelessWidget {
+  final String label;
+
+  IconSkillCard({ this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Color(0xFF424657),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(color: Colors.white, fontSize: 14),
+      ),
+    );
+  }
+}
+
