@@ -41,7 +41,7 @@ class IosAppAd extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: Text("Portfolio",
+                        child: Text("Some Projects",
                             style: GoogleFonts.oswald(
                               color: Colors.white,
                               fontWeight: FontWeight.w900,
@@ -112,37 +112,37 @@ class IosAppAd extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(height: 25.0),
-                                      Row(
-                                        children: [
-                                          MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: kPrimaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              height: 48.0,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 28.0),
-                                              child: TextButton(
-                                                onPressed: () {},
-                                                child: Center(
-                                                  child: Text(
-                                                    "EXPLORE MORE",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     MouseRegion(
+                                      //       cursor: SystemMouseCursors.click,
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //           color: kPrimaryColor,
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(8.0),
+                                      //         ),
+                                      //         height: 48.0,
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             horizontal: 28.0),
+                                      //         // child: TextButton(
+                                      //         //   onPressed: () {},
+                                      //         //   child: Center(
+                                      //         //     child: Text(
+                                      //         //       "EXPLORE MORE",
+                                      //         //       style: TextStyle(
+                                      //         //         color: Colors.white,
+                                      //         //         fontSize: 13.0,
+                                      //         //         fontWeight:
+                                      //         //             FontWeight.bold,
+                                      //         //       ),
+                                      //         //     ),
+                                      //         //   ),
+                                      //         // ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -200,37 +200,37 @@ class IosAppAd extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(height: 25.0),
-                                      Row(
-                                        children: [
-                                          MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: kPrimaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              height: 48.0,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 28.0),
-                                              child: TextButton(
-                                                onPressed: () {},
-                                                child: Center(
-                                                  child: Text(
-                                                    "EXPLORE MORE",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     MouseRegion(
+                                      //       cursor: SystemMouseCursors.click,
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //           color: kPrimaryColor,
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(8.0),
+                                      //         ),
+                                      //         height: 48.0,
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             horizontal: 28.0),
+                                      //         // child: TextButton(
+                                      //         //   onPressed: () {},
+                                      //         //   child: Center(
+                                      //         //     child: Text(
+                                      //         //       "EXPLORE MORE",
+                                      //         //       style: TextStyle(
+                                      //         //         color: Colors.white,
+                                      //         //         fontSize: 13.0,
+                                      //         //         fontWeight:
+                                      //         //             FontWeight.bold,
+                                      //         //       ),
+                                      //         //     ),
+                                      //         //   ),
+                                      //         // ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -288,44 +288,44 @@ class IosAppAd extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(height: 25.0),
-                                      Row(
-                                        children: [
-                                          MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: kPrimaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              height: 48.0,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 28.0),
-                                              child: TextButton(
-                                                onPressed: () {},
-                                                child: Center(
-                                                  child: Text(
-                                                    "EXPLORE MORE",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     MouseRegion(
+                                      //       cursor: SystemMouseCursors.click,
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //           color: kPrimaryColor,
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(8.0),
+                                      //         ),
+                                      //         height: 48.0,
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             horizontal: 28.0),
+                                      //         // child: TextButton(
+                                      //         //   onPressed: () {},
+                                      //         //   child: Center(
+                                      //         //     child: Text(
+                                      //         //       "EXPLORE MORE",
+                                      //         //       style: TextStyle(
+                                      //         //         color: Colors.white,
+                                      //         //         fontSize: 13.0,
+                                      //         //         fontWeight:
+                                      //         //             FontWeight.bold,
+                                      //         //       ),
+                                      //         //     ),
+                                      //         //   ),
+                                      //         // ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                                                Container(
+                          Container(
                             child: Flex(
                               direction: constraints.maxWidth > 720
                                   ? Axis.horizontal
@@ -375,44 +375,130 @@ class IosAppAd extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(height: 25.0),
-                                      Row(
-                                        children: [
-                                          MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: kPrimaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              height: 48.0,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 28.0),
-                                              child: TextButton(
-                                                onPressed: () {},
-                                                child: Center(
-                                                  child: Text(
-                                                    "EXPLORE MORE",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     MouseRegion(
+                                      //       cursor: SystemMouseCursors.click,
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //           color: kPrimaryColor,
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(8.0),
+                                      //         ),
+                                      //         height: 48.0,
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             horizontal: 28.0),
+                                      //         // child: TextButton(
+                                      //         //   onPressed: () {},
+                                      //         // //   child: Center(
+                                      //         // //     child: Text(
+                                      //         // //       "EXPLORE MORE",
+                                      //         // //       style: TextStyle(
+                                      //         // //         color: Colors.white,
+                                      //         // //         fontSize: 13.0,
+                                      //         // //         fontWeight:
+                                      //         // //             FontWeight.bold,
+                                      //         // //       ),
+                                      //         // //     ),
+                                      //         // //   ),
+                                      //         // // ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          
+                                                    Container(
+                            child: Flex(
+                              direction: constraints.maxWidth > 720
+                                  ? Axis.horizontal
+                                  : Axis.vertical,
+                              children: [
+                                Expanded(
+                                  flex: constraints.maxWidth > 720.0 ? 1 : 0,
+                                  child: Image.asset(
+                                    "assets/emkan.png", // Replace with Web image
+                                    width: constraints.maxWidth > 720.0
+                                        ? null
+                                        : 350.0,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: constraints.maxWidth > 720.0 ? 1 : 0,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "DEBUG AND DEVELOPING ANDROID AND IOS APP",
+                                        style: GoogleFonts.oswald(
+                                          color: kPrimaryColor,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                      SizedBox(height: 15.0),
+                                      Text(
+                                        "EMKAN",
+                                        style: GoogleFonts.oswald(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w900,
+                                          height: 1.3,
+                                          fontSize: 35.0,
+                                        ),
+                                      ),
+                                      SizedBox(height: 10.0),
+                                      Text(
+                                        "The application is the possibility of a super application for the employees of Tehran Municipality, which has been provided in the form of an application and on the Internet for easy access and in order to integrate services and facilities.",
+                                        style: TextStyle(
+                                          color: kCaptionColor,
+                                          height: 1.5,
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
+                                      SizedBox(height: 25.0),
+                                      // Row(
+                                      //   children: [
+                                      //     MouseRegion(
+                                      //       cursor: SystemMouseCursors.click,
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //           color: kPrimaryColor,
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(8.0),
+                                      //         ),
+                                      //         height: 48.0,
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             horizontal: 28.0),
+                                      //         // child: TextButton(
+                                      //         //   onPressed: () {},
+                                      //         // //   child: Center(
+                                      //         // //     child: Text(
+                                      //         // //       "EXPLORE MORE",
+                                      //         // //       style: TextStyle(
+                                      //         // //         color: Colors.white,
+                                      //         // //         fontSize: 13.0,
+                                      //         // //         fontWeight:
+                                      //         // //             FontWeight.bold,
+                                      //         // //       ),
+                                      //         // //     ),
+                                      //         // //   ),
+                                      //         // // ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -447,7 +533,7 @@ class IosAppAd extends StatelessWidget {
                           size: 50,
                         ),
                         onPressed: () {
-                          if (_pageController.page < 3) {
+                          if (_pageController.page < 4) {
                             // Assuming 3 pages, index 0 to 2
                             _pageController.nextPage(
                               duration: Duration(milliseconds: 300),
