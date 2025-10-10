@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/utils/constants.dart';
-import 'package:web_portfolio/utils/globalKeys.dart';
-import 'package:web_portfolio/utils/screen_helper.dart';
+import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/utils/screen_helper.dart';
 
 class IosAppAd extends StatelessWidget {
-  var iosAppKey = GlobalKey();
-  IosAppAd({this.iosAppKey});
+  final GlobalKey iosAppKey;
+  IosAppAd({required this.iosAppKey});
 
   @override
   Widget build(BuildContext context) {
@@ -513,7 +512,7 @@ class IosAppAd extends StatelessWidget {
                           size: 50,
                         ),
                         onPressed: () {
-                          if (_pageController.page > 0) {
+                          if (_pageController.page! > 0) {
                             _pageController.previousPage(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
@@ -533,7 +532,7 @@ class IosAppAd extends StatelessWidget {
                           size: 50,
                         ),
                         onPressed: () {
-                          if (_pageController.page < 4) {
+                          if (_pageController.page! < 4) {
                             // Assuming 3 pages, index 0 to 2
                             _pageController.nextPage(
                               duration: Duration(milliseconds: 300),

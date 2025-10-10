@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:web_portfolio/pages/home/components/carousel.dart';
-import 'package:web_portfolio/pages/home/components/cv_section.dart';
-import 'package:web_portfolio/pages/home/components/education_section.dart';
-import 'package:web_portfolio/pages/home/components/footer.dart';
-import 'package:web_portfolio/pages/home/components/header.dart';
-import 'package:web_portfolio/pages/home/components/ios_app_ad.dart';
-import 'package:web_portfolio/pages/home/components/portfolio_stats.dart';
-import 'package:web_portfolio/pages/home/components/skill_section.dart';
-import 'package:web_portfolio/pages/home/components/sponsors.dart';
-import 'package:web_portfolio/pages/home/components/testimonial_widget.dart';
-import 'package:web_portfolio/pages/home/components/website_ad.dart';
-import 'package:web_portfolio/utils/constants.dart';
-import 'package:web_portfolio/utils/globals.dart';
+import 'package:personalwebsite/pages/home/components/carousel.dart';
+import 'package:personalwebsite/pages/home/components/cv_section.dart';
+import 'package:personalwebsite/pages/home/components/footer.dart';
+import 'package:personalwebsite/pages/home/components/header.dart';
+import 'package:personalwebsite/pages/home/components/ios_app_ad.dart';
+import 'package:personalwebsite/pages/home/components/portfolio_stats.dart';
+import 'package:personalwebsite/pages/home/components/skill_section.dart';
+import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/utils/globals.dart';
 
 import '../../utils/globalKeys.dart';
 

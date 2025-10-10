@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/models/testimonial.dart';
-import 'package:web_portfolio/utils/constants.dart';
-import 'package:web_portfolio/utils/screen_helper.dart';
+import 'package:personalwebsite/models/testimonial.dart';
+import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/utils/screen_helper.dart';
 
 final List<Testimonial> testimonials = [
   Testimonial(

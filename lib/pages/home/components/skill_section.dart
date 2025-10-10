@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/models/skill.dart';
-import 'package:web_portfolio/utils/constants.dart';
-import 'package:web_portfolio/utils/screen_helper.dart';
+import 'package:personalwebsite/models/skill.dart';
+import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/utils/screen_helper.dart';
 
 List<Skill> skills = [
   Skill(
@@ -29,8 +29,8 @@ List<Skill> skills = [
 ];
 
 class SkillSection extends StatelessWidget {
-  var SkillKey= GlobalKey();
-  SkillSection({this.SkillKey});
+  final GlobalKey SkillKey;
+  SkillSection({required this.SkillKey});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -145,7 +145,7 @@ class SkillCard extends StatelessWidget {
   final String label;
   final IconData icon;
 
-  SkillCard({this.label, this.icon});
+  SkillCard({required this.label, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +174,7 @@ class SkillCard extends StatelessWidget {
 class IconSkillCard extends StatelessWidget {
   final String label;
 
-  IconSkillCard({ this.label});
+  IconSkillCard({required this.label});
 
   @override
   Widget build(BuildContext context) {

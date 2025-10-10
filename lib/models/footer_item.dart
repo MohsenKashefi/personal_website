@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class FooterItem {
   final String iconPath;
   final String title;
@@ -7,9 +5,9 @@ class FooterItem {
   final String text2;
 
   FooterItem({
-    @required this.iconPath,
-    @required this.title,
-    @required this.text1,
-    @required this.text2,
+    required this.iconPath,
+    required this.title,
+    required this.text1,
+    required this.text2,
   });
 }

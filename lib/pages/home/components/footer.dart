@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/models/footer_item.dart';
-import 'package:web_portfolio/utils/constants.dart';
-import 'package:web_portfolio/utils/screen_helper.dart';
+import 'package:personalwebsite/models/footer_item.dart';
+import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/utils/screen_helper.dart';
 
 final List<FooterItem> footerItems = [
   FooterItem(
@@ -23,7 +23,7 @@ final List<FooterItem> footerItems = [
     iconPath: "assets/email.png",
     title: "EMAIL",
     text1: "MohsenKashefi2016@yahoo.com",
-   // text2: "info@flutterpanda.com",
+    text2: "",
   ),
   // FooterItem(
   //   iconPath: "assets/whatsapp.png",
@@ -34,8 +34,8 @@ final List<FooterItem> footerItems = [
 ];
 
 class Footer extends StatelessWidget {
-  var footerKey = GlobalKey();
-  Footer({this.footerKey});
+  final GlobalKey footerKey;
+  Footer({required this.footerKey});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,7 +111,7 @@ Widget _buildUi(double width, BuildContext context) {
                                         ),
                                       ),
                                      TextSpan(
-                                        text:  footerItem.text2 != null ? "${footerItem.text2}\n" : " ",
+                                        text: footerItem.text2.isNotEmpty ? "${footerItem.text2}\n" : " ",
                                         style: TextStyle(
                                           color: kCaptionColor,
                                         ),

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/models/header_item.dart';
-import 'package:web_portfolio/pages/home/components/cv_section.dart';
-import 'package:web_portfolio/utils/constants.dart';
-import 'package:web_portfolio/utils/globals.dart';
-import 'package:web_portfolio/utils/screen_helper.dart';
+import 'package:personalwebsite/models/header_item.dart';
+import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/utils/globals.dart';
+import 'package:personalwebsite/utils/screen_helper.dart';
 
 import '../../../utils/globalKeys.dart';
 
@@ -14,7 +13,7 @@ List<HeaderItem> headerItems = [
   HeaderItem(
     title: "HOME",
     onTap: () {
-      Scrollable.ensureVisible(key1.currentContext,
+      Scrollable.ensureVisible(key1.currentContext!,
           duration: Duration(milliseconds: 700), curve: Curves.easeInOut);
     },
   ),
@@ -27,19 +26,19 @@ List<HeaderItem> headerItems = [
   HeaderItem(
       title: "SERVICES",
       onTap: () {
-        Scrollable.ensureVisible(key2.currentContext,
+        Scrollable.ensureVisible(key2.currentContext!,
             duration: Duration(milliseconds: 700), curve: Curves.easeInOut);
       }),
   HeaderItem(title: "PORTFOLIO", onTap: () {
-            Scrollable.ensureVisible(key3.currentContext,
+            Scrollable.ensureVisible(key3.currentContext!,
             duration: Duration(milliseconds: 700), curve: Curves.easeInOut);
   }),
   HeaderItem(title: "SKILLS", onTap: () {
-                Scrollable.ensureVisible(key4.currentContext,
+                Scrollable.ensureVisible(key4.currentContext!,
             duration: Duration(milliseconds: 700), curve: Curves.easeInOut);
   }),
   HeaderItem(title: "CONTACT", onTap: () {
-        Scrollable.ensureVisible(key5.currentContext,
+        Scrollable.ensureVisible(key5.currentContext!,
             duration: Duration(milliseconds: 700), curve: Curves.easeInOut);
   }),
   // HeaderItem(
@@ -86,8 +85,8 @@ class HeaderLogo extends StatelessWidget {
 }
 
 class HeaderRow extends StatelessWidget {
-  HeaderRow({this.key1});
-  var key1 = GlobalKey();
+  HeaderRow({required this.key1});
+  final GlobalKey key1;
   @override
   Widget build(BuildContext context) {
     return ResponsiveVisibility(
@@ -146,7 +145,6 @@ class HeaderRow extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
-  var key1 = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -176,7 +174,7 @@ class Header extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 // Lets open drawer using global key
-                Globals.scaffoldKey.currentState.openEndDrawer();
+                Globals.scaffoldKey.currentState!.openEndDrawer();
               },
               child: Icon(
                 Icons.menu,
@@ -192,14 +190,13 @@ class Header extends StatelessWidget {
 
   // Lets plan for mobile and smaller width screens
   Widget buildHeader() {
-    var key1 = GlobalKey();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           HeaderLogo(),
-          HeaderRow(),
+          HeaderRow(key1: key1),
         ],
       ),
     );

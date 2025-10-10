@@ -1,14 +1,13 @@
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/pages/home/components/carousel_items.dart';
-import 'package:web_portfolio/utils/constants.dart';
-import 'package:web_portfolio/utils/screen_helper.dart';
+import 'package:personalwebsite/pages/home/components/carousel_items.dart';
+import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/utils/screen_helper.dart';
 
 class Carousel extends StatelessWidget {
-  Carousel({this.key1});
-  var key1 = GlobalKey();
-  final CarouselController carouselController = CarouselController();
+  Carousel({required this.key1});
+  final GlobalKey key1;
   @override
   Widget build(BuildContext context) {
     double carouselContainerHeight = MediaQuery.of(context).size.height *
@@ -23,7 +22,6 @@ class Carousel extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             child: CarouselSlider(
-              carouselController: carouselController,
               options: CarouselOptions(
                 // autoPlay: true,
                 viewportFraction: 1,
