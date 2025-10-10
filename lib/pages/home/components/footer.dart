@@ -71,6 +71,7 @@ Widget _buildUi(double width, BuildContext context) {
                                     Image.asset(
                                       footerItem.iconPath,
                                       width: 25.0,
+                                      cacheWidth: 75, // Optimize image loading
                                     ),
                                     const SizedBox(width: 15.0),
                                     Text(

@@ -51,15 +51,15 @@ class PortfolioStats extends StatelessWidget {
                       style: GoogleFonts.oswald(
                         fontWeight: FontWeight.w700,
                         fontSize: 32.0,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     const SizedBox(width: 10.0),
                     Text(
                       stat.text,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16.0,
-                        color: kCaptionColor,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
                       ),
                     ),
                   ],

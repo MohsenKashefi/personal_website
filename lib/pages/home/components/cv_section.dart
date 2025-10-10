@@ -107,41 +107,41 @@ class CvSection extends StatelessWidget {
                         : MediaQuery.of(context).size.aspectRatio * 1.5,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                designProcesses[index].imagePath,
-                                width: kIconSize,
-                              ),
-                              const SizedBox(width: 15.0),
-                              Text(
-                                designProcesses[index].title,
-                                style: GoogleFonts.oswald(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 15.0),
-                          Expanded(
-                            child: Text(
-                              designProcesses[index].subtitle,
-                              style: const TextStyle(
-                                color: kCaptionColor,
-                                height: 1.5,
-                                fontSize: 13.0,
-                              ),
+                    final process = designProcesses[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              process.imagePath,
+                              width: kIconSize,
+                              cacheWidth: 120, // Optimize image loading
                             ),
-                          )
-                        ],
-                      ),
+                            const SizedBox(width: 15.0),
+                            Text(
+                              process.title,
+                              style: GoogleFonts.oswald(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).colorScheme.onBackground,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 15.0),
+                        Expanded(
+                          child: Text(
+                            process.subtitle,
+                            style: TextStyle(
+                              color: Theme.of(context).textTheme.bodyMedium?.color,
+                              height: 1.5,
+                              fontSize: 13.0,
+                            ),
+                          ),
+                        )
+                      ],
                     );
                   },
                   itemCount: designProcesses.length,
