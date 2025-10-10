@@ -30,14 +30,14 @@ class AppTheme {
   static const Color lightCard = Color(0xFFF1F5F9);
   
   // Light mode accents (darker for better visibility)
-  static const Color lightPrimary = Color(0xFF3B82F6); // Bright blue
-  static const Color lightSecondary = Color(0xFF8B5CF6); // Purple
-  static const Color lightAccent = Color(0xFFEC4899); // Pink
+  static const Color lightPrimary = Color(0xFF2563EB); // Darker blue
+  static const Color lightSecondary = Color(0xFF7C3AED); // Darker purple
+  static const Color lightAccent = Color(0xFFDB2777); // Darker pink
   
-  // Light text colors (darker for visibility)
-  static const Color lightText = Color(0xFF0F172A); // Very dark
-  static const Color lightTextSecondary = Color(0xFF475569); // Dark gray
-  static const Color lightTextMuted = Color(0xFF64748B); // Medium gray
+  // Light text colors (very dark for maximum visibility)
+  static const Color lightText = Color(0xFF000000); // Pure black
+  static const Color lightTextSecondary = Color(0xFF1E293B); // Very dark gray
+  static const Color lightTextMuted = Color(0xFF475569); // Dark gray
 
   // ==================== SHARED COLORS ====================
   static const Color success = Color(0xFF10B981);

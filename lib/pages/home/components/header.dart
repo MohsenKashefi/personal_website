@@ -46,7 +46,7 @@ class HeaderLogo extends StatelessWidget {
               TextSpan(
                 text: "M",
                 style: GoogleFonts.oswald(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onBackground,
                   fontSize: kHeaderLogoFontSize,
                   fontWeight: FontWeight.bold,
                 ),
@@ -54,7 +54,7 @@ class HeaderLogo extends StatelessWidget {
               TextSpan(
                 text: ".",
                 style: GoogleFonts.oswald(
-                  color: kPrimaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                   fontSize: kHeaderLogoDotFontSize,
                   fontWeight: FontWeight.bold,
                 ),
@@ -113,8 +113,8 @@ class HeaderRow extends StatelessWidget {
                           onTap: item.onTap,
                           child: Text(
                             item.title,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
                               fontSize: kHeaderItemFontSize,
                               fontWeight: FontWeight.bold,
                             ),

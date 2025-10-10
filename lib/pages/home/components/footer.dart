@@ -57,56 +57,56 @@ Widget _buildUi(double width, BuildContext context) {
                   children: footerItems
                       .map(
                         (footerItem) => Container(
-                          height: 120.0,
                           width: ScreenHelper.isMobile(context)
                               ? constraints.maxWidth / 2.0 - 20.0
                               : constraints.maxWidth / 4.0 - 20.0,
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Image.asset(
-                                      footerItem.iconPath,
-                                      width: 25.0,
-                                      cacheWidth: 75, // Optimize image loading
-                                    ),
-                                    const SizedBox(width: 15.0),
-                                    Text(
-                                      footerItem.title,
-                                      style: GoogleFonts.oswald(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 15.0),
-                                RichText(
-                                  textAlign: TextAlign.start,
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: "${footerItem.text1}\n",
-                                        style: const TextStyle(
-                                          color: kCaptionColor,
-                                          height: 1.8,
-                                        ),
-                                      ),
-                                     TextSpan(
-                                        text: footerItem.text2.isNotEmpty ? "${footerItem.text2}\n" : " ",
-                                        style: const TextStyle(
-                                          color: kCaptionColor,
-                                        ),
-                                      ) 
-                                    ],
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    footerItem.iconPath,
+                                    width: 25.0,
+                                    cacheWidth: 75,
+                                    color: Theme.of(context).colorScheme.primary,
                                   ),
-                                )
+                                  const SizedBox(width: 12.0),
+                                  Text(
+                                    footerItem.title,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context).colorScheme.onBackground,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 12.0),
+                              Text(
+                                footerItem.text1,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                                  fontSize: 14.0,
+                                  height: 1.5,
+                                ),
+                              ),
+                              if (footerItem.text2.isNotEmpty) ...[
+                                const SizedBox(height: 4.0),
+                                Text(
+                                  footerItem.text2,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                                    fontSize: 14.0,
+                                  ),
+                                ),
                               ],
-                            ),
+                            ],
                           ),
                         ),
                       )

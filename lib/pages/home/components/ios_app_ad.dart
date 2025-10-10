@@ -40,13 +40,13 @@ class IosAppAd extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: Text("Some Projects",
-                            style: GoogleFonts.oswald(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900,
-                              height: 1.3,
-                              fontSize: 35.0,
-                            )),
+                  child: Text("Some Projects",
+                      style: GoogleFonts.oswald(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontWeight: FontWeight.w900,
+                        height: 1.3,
+                        fontSize: 35.0,
+                      )),
                       ),
                     ],
                   ),
@@ -86,7 +86,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "ANDROID AND IOS APP",
                                         style: GoogleFonts.oswald(
-                                          color: kPrimaryColor,
+                                          color: Theme.of(context).colorScheme.primary,
                                           fontWeight: FontWeight.w900,
                                           fontSize: 16.0,
                                         ),
@@ -95,7 +95,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "RESUME MAKER",
                                         style: GoogleFonts.oswald(
-                                          color: Colors.white,
+                                          color: Theme.of(context).colorScheme.onBackground,
                                           fontWeight: FontWeight.w900,
                                           height: 1.3,
                                           fontSize: 35.0,
@@ -105,7 +105,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "An app to create a resume with different templates in the shortest time",
                                         style: TextStyle(
-                                          color: kCaptionColor,
+                                          color: Theme.of(context).textTheme.bodyMedium?.color,
                                           height: 1.5,
                                           fontSize: 15.0,
                                         ),
@@ -174,7 +174,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "ANDROID AND IOS APP",
                                         style: GoogleFonts.oswald(
-                                          color: kPrimaryColor,
+                                          color: Theme.of(context).colorScheme.primary,
                                           fontWeight: FontWeight.w900,
                                           fontSize: 16.0,
                                         ),
@@ -183,7 +183,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "SCHOOL SERVICE",
                                         style: GoogleFonts.oswald(
-                                          color: Colors.white,
+                                          color: Theme.of(context).colorScheme.onBackground,
                                           fontWeight: FontWeight.w900,
                                           height: 1.3,
                                           fontSize: 35.0,
@@ -193,7 +193,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "This is an app to transfer disabled students between home and school. It includes the passenger app and the driver app. It has various features such as announcing the presence or absence of the student and....",
                                         style: TextStyle(
-                                          color: kCaptionColor,
+                                          color: Theme.of(context).textTheme.bodyMedium?.color,
                                           height: 1.5,
                                           fontSize: 15.0,
                                         ),
@@ -262,7 +262,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "ANDROID AND DESKTOP APP",
                                         style: GoogleFonts.oswald(
-                                          color: kPrimaryColor,
+                                          color: Theme.of(context).colorScheme.primary,
                                           fontWeight: FontWeight.w900,
                                           fontSize: 16.0,
                                         ),
@@ -271,7 +271,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "KETABDAR",
                                         style: GoogleFonts.oswald(
-                                          color: Colors.white,
+                                          color: Theme.of(context).colorScheme.onBackground,
                                           fontWeight: FontWeight.w900,
                                           height: 1.3,
                                           fontSize: 35.0,
@@ -281,7 +281,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "This is an app to manage the books of a school. It has different features to do this..",
                                         style: TextStyle(
-                                          color: kCaptionColor,
+                                          color: Theme.of(context).textTheme.bodyMedium?.color,
                                           height: 1.5,
                                           fontSize: 15.0,
                                         ),
@@ -349,7 +349,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "ANDROID APP",
                                         style: GoogleFonts.oswald(
-                                          color: kPrimaryColor,
+                                          color: Theme.of(context).colorScheme.primary,
                                           fontWeight: FontWeight.w900,
                                           fontSize: 16.0,
                                         ),
@@ -358,7 +358,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "WIB",
                                         style: GoogleFonts.oswald(
-                                          color: Colors.white,
+                                          color: Theme.of(context).colorScheme.onBackground,
                                           fontWeight: FontWeight.w900,
                                           height: 1.3,
                                           fontSize: 35.0,
@@ -368,7 +368,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "WIB is an exciting game that has 40 stages and each stage, the user has 30 seconds to answer the question As much as the user answers the question in less time (seconds).The remaining 30 seconds are scored. Points are recorded and you can share with others Compete and see your rank",
                                         style: TextStyle(
-                                          color: kCaptionColor,
+                                          color: Theme.of(context).textTheme.bodyMedium?.color,
                                           height: 1.5,
                                           fontSize: 15.0,
                                         ),
@@ -436,7 +436,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "DEBUG AND DEVELOPING ANDROID AND IOS APP",
                                         style: GoogleFonts.oswald(
-                                          color: kPrimaryColor,
+                                          color: Theme.of(context).colorScheme.primary,
                                           fontWeight: FontWeight.w900,
                                           fontSize: 16.0,
                                         ),
@@ -445,7 +445,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "EMKAN",
                                         style: GoogleFonts.oswald(
-                                          color: Colors.white,
+                                          color: Theme.of(context).colorScheme.onBackground,
                                           fontWeight: FontWeight.w900,
                                           height: 1.3,
                                           fontSize: 35.0,
@@ -455,7 +455,7 @@ class IosAppAd extends StatelessWidget {
                                       Text(
                                         "The application is the possibility of a super application for the employees of Tehran Municipality, which has been provided in the form of an application and on the Internet for easy access and in order to integrate services and facilities.",
                                         style: TextStyle(
-                                          color: kCaptionColor,
+                                          color: Theme.of(context).textTheme.bodyMedium?.color,
                                           height: 1.5,
                                           fontSize: 15.0,
                                         ),
