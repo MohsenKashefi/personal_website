@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:personalwebsite/config/app_theme.dart';
 
-// ==================== Colors ====================
-const Color kPrimaryColor = Color.fromRGBO(21, 181, 114, 1);
-const Color kBackgroundColor = Color.fromRGBO(7, 17, 26, 1);
-const Color kDangerColor = Color.fromRGBO(249, 77, 30, 1);
-const Color kCaptionColor = Color.fromRGBO(166, 177, 187, 1);
+// ==================== Colors (Legacy - use AppTheme colors for new code) ====================
+const Color kPrimaryColor = AppTheme.primaryGreen;
+const Color kBackgroundColor = AppTheme.darkBackground;
+const Color kDangerColor = AppTheme.error;
+const Color kCaptionColor = AppTheme.darkTextMuted;
 
 // ==================== Responsive Breakpoints ====================
 const double kDesktopMaxWidth = 1000.0;

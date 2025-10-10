@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:personalwebsite/config/app_theme.dart';
 import 'package:personalwebsite/pages/home/home.dart';
-import 'package:personalwebsite/utils/constants.dart';
+import 'package:personalwebsite/providers/theme_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,10 +19,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     return MaterialApp(
-      title: "Mohsen",
+      title: "Mohsen Kashefi - Developer Portfolio",
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
+      themeMode: themeProvider.themeMode,
+      theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       builder: (context, widget) => ResponsiveWrapper.builder(
         ClampingScrollWrapper.builder(context, widget!),
@@ -28,10 +37,11 @@ class MyApp extends StatelessWidget {
           ResponsiveBreakpoint.resize(2460, name: "4K"),
         ],
         background: Container(
-          color: kBackgroundColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
       ),
       home: const Home(),
     );
   }
 }
+

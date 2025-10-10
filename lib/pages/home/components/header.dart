@@ -6,6 +6,7 @@ import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/globals.dart';
 import 'package:personalwebsite/utils/screen_helper.dart';
 import 'package:personalwebsite/utils/globalKeys.dart';
+import 'package:personalwebsite/widgets/theme_toggle_button.dart';
 
 List<HeaderItem> headerItems = [
   HeaderItem(
@@ -136,14 +137,14 @@ class Header extends StatelessWidget {
     return ScreenHelper(
       desktop: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: _buildHeader(),
+        child: _buildHeader(context),
       ),
-      mobile: _buildMobileHeader(),
-      tablet: _buildHeader(),
+      mobile: _buildMobileHeader(context),
+      tablet: _buildHeader(context),
     );
   }
 
-  Widget _buildMobileHeader() {
+  Widget _buildMobileHeader(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -151,15 +152,21 @@ class Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const HeaderLogo(),
-            GestureDetector(
-              onTap: () {
-                Globals.scaffoldKey.currentState?.openEndDrawer();
-              },
-              child: const Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 28.0,
-              ),
+            Row(
+              children: [
+                const ThemeToggleIcon(),
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () {
+                    Globals.scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  child: Icon(
+                    Icons.menu,
+                    color: Theme.of(context).colorScheme.onBackground,
+                    size: 28.0,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -167,14 +174,17 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: const [
           HeaderLogo(),
+          Spacer(),
           HeaderRow(),
+          SizedBox(width: 20),
+          ThemeToggleButton(),
         ],
       ),
     );
