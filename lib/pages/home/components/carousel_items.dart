@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:personalwebsite/models/carousel_item_model.dart';
 import 'package:personalwebsite/config/app_theme.dart';
+import 'package:personalwebsite/utils/globalKeys.dart';
 
 List<CarouselItemModel> carouselItems = List.generate(
   1,
@@ -85,11 +87,22 @@ class _HeroTextSection extends StatelessWidget {
             _GlowingButton(
               text: "View Projects",
               isPrimary: true,
+              onTap: () => scrollToSection(NavigationKeys.portfolioKey),
             ),
             const SizedBox(width: 16),
             _GlowingButton(
               text: "Contact Me",
               isPrimary: false,
+              onTap: () async {
+                final Uri emailUri = Uri(
+                  scheme: 'mailto',
+                  path: 'mohsenkashefi2000@gmail.com',
+                  query: 'subject=Hello from Your Portfolio',
+                );
+                if (await canLaunchUrl(emailUri)) {
+                  await launchUrl(emailUri);
+                }
+              },
             ),
           ],
         ),
@@ -129,10 +142,12 @@ class _HeroImageSection extends StatelessWidget {
 class _GlowingButton extends StatelessWidget {
   final String text;
   final bool isPrimary;
+  final VoidCallback? onTap;
 
   const _GlowingButton({
     required this.text,
     required this.isPrimary,
+    this.onTap,
   });
 
   @override
@@ -141,7 +156,9 @@ class _GlowingButton extends StatelessWidget {
     
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: Container(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
         decoration: BoxDecoration(
           gradient: isPrimary
               ? LinearGradient(
@@ -181,6 +198,7 @@ class _GlowingButton extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }

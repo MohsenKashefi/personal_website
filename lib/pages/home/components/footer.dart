@@ -2,24 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:personalwebsite/models/footer_item.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/screen_helper.dart';
 
-final List<FooterItem> footerItems = [
-  FooterItem(
-    iconPath: "assets/mappin.png",
-    title: "ADDRESS",
-    text1: "Genova, Italy",
-    text2: "",
-  ),
-  FooterItem(
-    iconPath: "assets/email.png",
-    title: "EMAIL",
-    text1: "mohsenkashefi2000@gmail.com",
-    text2: "",
-  ),
-];
+// Removed footer items - using only social links now
 
 class Footer extends StatelessWidget {
   const Footer({Key? key, required this.sectionKey}) : super(key: key);
@@ -72,16 +59,6 @@ Widget _buildUi(double width, BuildContext context) {
           
           const SizedBox(height: 48),
           
-          // Contact Cards
-          Wrap(
-            spacing: 24.0,
-            runSpacing: 24.0,
-            alignment: WrapAlignment.center,
-            children: footerItems.map((item) => _buildContactCard(context, item, isDark)).toList(),
-          ),
-          
-          const SizedBox(height: 48),
-          
           // Social Media Icons
           _buildSocialSection(context, isDark),
           
@@ -107,17 +84,6 @@ Widget _buildUi(double width, BuildContext context) {
             ),
           ),
           
-          const SizedBox(height: 8),
-          
-          Text(
-            "Built with Flutter & ❤️",
-            style: GoogleFonts.inter(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 14.0,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          
           const SizedBox(height: 40),
         ],
       ),
@@ -125,128 +91,82 @@ Widget _buildUi(double width, BuildContext context) {
   );
 }
 
-Widget _buildContactCard(BuildContext context, FooterItem item, bool isDark) {
-  return Container(
-    width: 280,
-    padding: const EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: isDark
-            ? [
-                const Color(0xFF334155),
-                const Color(0xFF1E293B),
-              ]
-            : [
-                Colors.white,
-                const Color(0xFFF8FAFC),
-              ],
-      ),
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(
-        color: isDark
-            ? const Color(0xFF475569)
-            : const Color(0xFFE2E8F0),
-        width: 1.5,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-          blurRadius: 20,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            item.title == "ADDRESS" ? Icons.location_on : Icons.email,
-            color: Theme.of(context).colorScheme.primary,
-            size: 32,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          item.title,
-          style: GoogleFonts.poppins(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).colorScheme.primary,
-            letterSpacing: 1.5,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          item.text1,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            color: Theme.of(context).colorScheme.onBackground,
-            fontSize: 15.0,
-            fontWeight: FontWeight.w500,
-            height: 1.5,
-          ),
-        ),
-      ],
-    ),
-  );
-}
+// Contact card removed - using only social icons now
 
 Widget _buildSocialSection(BuildContext context, bool isDark) {
-  return Column(
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Text(
-        "Follow Me",
-        style: GoogleFonts.poppins(
-          color: Theme.of(context).colorScheme.onBackground,
-          fontWeight: FontWeight.w600,
-          fontSize: 18.0,
-        ),
+      _buildSocialIcon(
+        context,
+        FontAwesomeIcons.github,
+        'https://github.com/mohsenkashefi',
+        isDark,
       ),
-      const SizedBox(height: 20),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildSocialIcon(context, FontAwesomeIcons.github, isDark),
-          const SizedBox(width: 16),
-          _buildSocialIcon(context, FontAwesomeIcons.linkedin, isDark),
-          const SizedBox(width: 16),
-          _buildSocialIcon(context, FontAwesomeIcons.twitter, isDark),
-          const SizedBox(width: 16),
-          _buildSocialIcon(context, FontAwesomeIcons.instagram, isDark),
-        ],
+      const SizedBox(width: 20),
+      _buildSocialIcon(
+        context,
+        FontAwesomeIcons.linkedin,
+        'https://linkedin.com/in/mohsenkashefi',
+        isDark,
+      ),
+      const SizedBox(width: 20),
+      _buildSocialIcon(
+        context,
+        FontAwesomeIcons.stackOverflow,
+        'https://stackoverflow.com/users/31612041/mohsen-kashefi',
+        isDark,
       ),
     ],
   );
 }
 
-Widget _buildSocialIcon(BuildContext context, IconData icon, bool isDark) {
+Widget _buildSocialIcon(BuildContext context, IconData icon, String url, bool isDark) {
   return MouseRegion(
     cursor: SystemMouseCursors.click,
-    child: Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: isDark
-            ? const Color(0xFF334155)
-            : const Color(0xFFF8FAFC),
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: isDark
-              ? const Color(0xFF475569)
-              : const Color(0xFFE2E8F0),
-          width: 1.5,
+    child: GestureDetector(
+      onTap: () async {
+        final Uri uri = Uri.parse(url);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    const Color(0xFF334155),
+                    const Color(0xFF1E293B),
+                  ]
+                : [
+                    Colors.white,
+                    const Color(0xFFF8FAFC),
+                  ],
+          ),
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: isDark
+                ? const Color(0xFF475569)
+                : const Color(0xFFE2E8F0),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.15),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-      ),
-      child: FaIcon(
-        icon,
-        color: Theme.of(context).colorScheme.primary,
-        size: 20,
+        child: FaIcon(
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+          size: 24,
+        ),
       ),
     ),
   );
