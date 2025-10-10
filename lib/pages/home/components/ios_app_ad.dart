@@ -504,41 +504,51 @@ class IosAppAd extends StatelessWidget {
                     // Left Navigation Button
                     Positioned(
                       left: 10.0,
-                      //  top: constraints.maxHeight / 2 - 24,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 50,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                          shape: BoxShape.circle,
                         ),
-                        onPressed: () {
-                          if (_pageController.page! > 0) {
-                            _pageController.previousPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          }
-                        },
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            if (_pageController.page! > 0) {
+                              _pageController.previousPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            }
+                          },
+                        ),
                       ),
                     ),
                     // Right Navigation Button
                     Positioned(
                       right: 10.0,
-                      // top: constraints.maxHeight / 2 - 24,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          size: 50,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                          shape: BoxShape.circle,
                         ),
-                        onPressed: () {
-                          if (_pageController.page! < 4) {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          }
-                        },
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            if (_pageController.page! < 4) {
+                              _pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            }
+                          },
+                        ),
                       ),
                     ),
                   ],
