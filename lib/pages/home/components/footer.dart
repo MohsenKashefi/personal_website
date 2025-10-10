@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:personalwebsite/models/footer_item.dart';
@@ -34,12 +33,14 @@ final List<FooterItem> footerItems = [
 ];
 
 class Footer extends StatelessWidget {
-  final GlobalKey footerKey;
-  Footer({required this.footerKey});
+  const Footer({Key? key, required this.sectionKey}) : super(key: key);
+  
+  final GlobalKey sectionKey;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: footerKey,
+      key: sectionKey,
       child: ScreenHelper(
         desktop: _buildUi(kDesktopMaxWidth, context),
         tablet: _buildUi(kTabletMaxWidth, context),
@@ -61,7 +62,7 @@ Widget _buildUi(double width, BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 50.0),
+                padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: Wrap(
                   spacing: 20.0,
                   runSpacing: 20.0,
@@ -83,9 +84,7 @@ Widget _buildUi(double width, BuildContext context) {
                                       footerItem.iconPath,
                                       width: 25.0,
                                     ),
-                                    SizedBox(
-                                      width: 15.0,
-                                    ),
+                                    const SizedBox(width: 15.0),
                                     Text(
                                       footerItem.title,
                                       style: GoogleFonts.oswald(
@@ -96,23 +95,21 @@ Widget _buildUi(double width, BuildContext context) {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 15.0,
-                                ),
+                                const SizedBox(height: 15.0),
                                 RichText(
                                   textAlign: TextAlign.start,
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
                                         text: "${footerItem.text1}\n",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: kCaptionColor,
                                           height: 1.8,
                                         ),
                                       ),
                                      TextSpan(
                                         text: footerItem.text2.isNotEmpty ? "${footerItem.text2}\n" : " ",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: kCaptionColor,
                                         ),
                                       ) 
@@ -127,9 +124,7 @@ Widget _buildUi(double width, BuildContext context) {
                       .toList(),
                 ),
               ),
-              SizedBox(
-                height: 20.0,
-              ),
+              const SizedBox(height: 20.0),
               Flex(
                 direction: ScreenHelper.isMobile(context)
                     ? Axis.vertical

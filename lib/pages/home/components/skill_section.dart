@@ -29,12 +29,14 @@ List<Skill> skills = [
 ];
 
 class SkillSection extends StatelessWidget {
-  final GlobalKey SkillKey;
-  SkillSection({required this.SkillKey});
+  const SkillSection({Key? key, required this.sectionKey}) : super(key: key);
+  
+  final GlobalKey sectionKey;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: SkillKey,
+      key: sectionKey,
       child: ScreenHelper(
         desktop: _buildUi(kDesktopMaxWidth),
         tablet: _buildUi(kTabletMaxWidth),
@@ -65,18 +67,14 @@ class SkillSection extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 50.0,
-                ),
+                const SizedBox(width: 50.0),
                 Expanded(
                   flex: ScreenHelper.isMobile(context) ? 0 : 4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 20.0,
-                      ),
+                      const SizedBox(height: 20.0),
                       Text(
                         "Highlighted skills",
                         style: GoogleFonts.oswald(
@@ -86,10 +84,8 @@ class SkillSection extends StatelessWidget {
                           height: 1.3,
                         ),
                       ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      SkillsSection(),
+                      const SizedBox(height: 20.0),
+                      const SkillsSection(),
                     ],
                   ),
                 ),
@@ -103,6 +99,8 @@ class SkillSection extends StatelessWidget {
 }
 
 class SkillsSection extends StatelessWidget {
+  const SkillsSection({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -142,28 +140,28 @@ class SkillsSection extends StatelessWidget {
 }
 
 class SkillCard extends StatelessWidget {
+  const SkillCard({Key? key, required this.label, required this.icon}) : super(key: key);
+  
   final String label;
   final IconData icon;
-
-  SkillCard({required this.label, required this.icon});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(8.0),
-      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
       decoration: BoxDecoration(
-        color: Color(0xFF424657),
+        color: const Color(0xFF424657),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, color: Colors.white),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Text(
             label,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: const TextStyle(color: Colors.white, fontSize: 16),
           ),
         ],
       ),
@@ -172,21 +170,21 @@ class SkillCard extends StatelessWidget {
 }
 
 class IconSkillCard extends StatelessWidget {
+  const IconSkillCard({Key? key, required this.label}) : super(key: key);
+  
   final String label;
-
-  IconSkillCard({required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       decoration: BoxDecoration(
-        color: Color(0xFF424657),
+        color: const Color(0xFF424657),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Text(
         label,
-        style: TextStyle(color: Colors.white, fontSize: 14),
+        style: const TextStyle(color: Colors.white, fontSize: 14),
       ),
     );
   }

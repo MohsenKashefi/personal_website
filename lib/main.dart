@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:personalwebsite/config/app_theme.dart';
 import 'package:personalwebsite/pages/home/home.dart';
 import 'package:personalwebsite/utils/constants.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Mohsen",
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
-      darkTheme: Theme.of(context).copyWith(
-        platform: TargetPlatform.android,
-        scaffoldBackgroundColor: kBackgroundColor,
-        primaryColor: kPrimaryColor,
-        canvasColor: kBackgroundColor,
-        textTheme: GoogleFonts.latoTextTheme(),
-      ),
+      darkTheme: AppTheme.darkTheme,
       builder: (context, widget) => ResponsiveWrapper.builder(
         ClampingScrollWrapper.builder(context, widget!),
         defaultScale: true,
-        breakpoints: [
+        breakpoints: const [
           ResponsiveBreakpoint.resize(450, name: MOBILE),
           ResponsiveBreakpoint.resize(800, name: TABLET),
-          ResponsiveBreakpoint.resize(1000, name: TABLET),
           ResponsiveBreakpoint.resize(1200, name: DESKTOP),
           ResponsiveBreakpoint.resize(2460, name: "4K"),
         ],
@@ -36,7 +31,7 @@ class MyApp extends StatelessWidget {
           color: kBackgroundColor,
         ),
       ),
-      home: Home(),
+      home: const Home(),
     );
   }
 }

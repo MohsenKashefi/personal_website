@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:personalwebsite/models/design_process.dart';
@@ -34,13 +33,14 @@ final List<DesignProcess> designProcesses = [
 ];
 
 class CvSection extends StatelessWidget {
-  CvSection({required this.skillsKey});
-  final GlobalKey skillsKey;
+  const CvSection({Key? key, required this.sectionKey}) : super(key: key);
+  
+  final GlobalKey sectionKey;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: skillsKey,
+      key: sectionKey,
       width: double.infinity,
       child: ScreenHelper(
         desktop: _buildUi(context, kDesktopMaxWidth),
@@ -87,16 +87,13 @@ class CvSection extends StatelessWidget {
               // ),
             ],
           ),
-          SizedBox(
-            height: 50.0,
-          ),
-          Container(
-            child: LayoutBuilder(
+          const SizedBox(height: 50.0),
+          LayoutBuilder(
               builder: (_context, constraints) {
                 return ResponsiveGridView.builder(
-                  padding: EdgeInsets.all(0.0),
+                  padding: const EdgeInsets.all(0.0),
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   alignment: Alignment.topCenter,
                   gridDelegate: ResponsiveGridDelegate(
                     mainAxisSpacing: 20.0,
@@ -105,7 +102,6 @@ class CvSection extends StatelessWidget {
                             ScreenHelper.isMobile(context)
                         ? constraints.maxWidth / 2.0
                         : 250.0,
-                    // Hack to adjust child height
                     childAspectRatio: ScreenHelper.isDesktop(context)
                         ? 1
                         : MediaQuery.of(context).size.aspectRatio * 1.5,
@@ -120,11 +116,9 @@ class CvSection extends StatelessWidget {
                             children: [
                               Image.asset(
                                 designProcesses[index].imagePath,
-                                width: 40.0,
+                                width: kIconSize,
                               ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
+                              const SizedBox(width: 15.0),
                               Text(
                                 designProcesses[index].title,
                                 style: GoogleFonts.oswald(
@@ -135,13 +129,11 @@ class CvSection extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                            Expanded(
+                          const SizedBox(height: 15.0),
+                          Expanded(
                             child: Text(
                               designProcesses[index].subtitle,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: kCaptionColor,
                                 height: 1.5,
                                 fontSize: 13.0,
@@ -156,7 +148,6 @@ class CvSection extends StatelessWidget {
                 );
               },
             ),
-          )
         ],
       ),
     );
