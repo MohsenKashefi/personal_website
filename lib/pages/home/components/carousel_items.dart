@@ -116,23 +116,30 @@ class _HeroImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-            blurRadius: 30,
-            spreadRadius: 5,
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+        constraints: const BoxConstraints(
+          maxWidth: 350, // Smaller size
+          maxHeight: 400,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+              blurRadius: 30,
+              spreadRadius: 5,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30.0),
+          child: Image.asset(
+            "assets/person.png",
+            fit: BoxFit.cover,
+            cacheWidth: 500, // Smaller cache for performance
           ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.asset(
-          "assets/person.png",
-          fit: BoxFit.contain,
-          cacheWidth: 800, // Optimize image loading
         ),
       ),
     );
