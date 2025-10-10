@@ -7,37 +7,37 @@ class AppTheme {
   AppTheme._();
 
   // ==================== DARK THEME COLORS ====================
-  // Glamorous dark theme with depth and sophistication
-  static const Color darkBackground = Color(0xFF0A0E27);
-  static const Color darkSurface = Color(0xFF151B3D);
-  static const Color darkCard = Color(0xFF1E2749);
+  // Beautiful dark theme with elegant colors
+  static const Color darkBackground = Color(0xFF0F172A);
+  static const Color darkSurface = Color(0xFF1E293B);
+  static const Color darkCard = Color(0xFF334155);
   
-  // Vibrant accent colors
-  static const Color primaryGreen = Color(0xFF00FFA3);
-  static const Color primaryPurple = Color(0xFF7B2FF7);
-  static const Color accentPink = Color(0xFFFF0080);
-  static const Color accentBlue = Color(0xFF00D9FF);
+  // Beautiful accent colors
+  static const Color primaryGreen = Color(0xFF10B981); // Softer green
+  static const Color primaryPurple = Color(0xFF8B5CF6); // Elegant purple
+  static const Color accentPink = Color(0xFFEC4899); // Beautiful pink
+  static const Color accentBlue = Color(0xFF3B82F6); // Nice blue
   
   // Text colors
-  static const Color darkText = Color(0xFFFFFFFF);
-  static const Color darkTextSecondary = Color(0xFFB8C5D6);
-  static const Color darkTextMuted = Color(0xFF6B7A8F);
+  static const Color darkText = Color(0xFFF8FAFC);
+  static const Color darkTextSecondary = Color(0xFFCBD5E1);
+  static const Color darkTextMuted = Color(0xFF94A3B8);
 
   // ==================== LIGHT THEME COLORS ====================
   // Clean, modern light theme
-  static const Color lightBackground = Color(0xFFFAFBFC);
-  static const Color lightSurface = Color(0xFFFFFFFF);
-  static const Color lightCard = Color(0xFFF5F7FA);
+  static const Color lightBackground = Color(0xFFFFFFFF);
+  static const Color lightSurface = Color(0xFFF8FAFC);
+  static const Color lightCard = Color(0xFFF1F5F9);
   
-  // Light mode accents
-  static const Color lightPrimary = Color(0xFF6366F1);
-  static const Color lightSecondary = Color(0xFF8B5CF6);
-  static const Color lightAccent = Color(0xFFEC4899);
+  // Light mode accents (darker for better visibility)
+  static const Color lightPrimary = Color(0xFF3B82F6); // Bright blue
+  static const Color lightSecondary = Color(0xFF8B5CF6); // Purple
+  static const Color lightAccent = Color(0xFFEC4899); // Pink
   
-  // Light text colors
-  static const Color lightText = Color(0xFF1F2937);
-  static const Color lightTextSecondary = Color(0xFF6B7280);
-  static const Color lightTextMuted = Color(0xFF9CA3AF);
+  // Light text colors (darker for visibility)
+  static const Color lightText = Color(0xFF0F172A); // Very dark
+  static const Color lightTextSecondary = Color(0xFF475569); // Dark gray
+  static const Color lightTextMuted = Color(0xFF64748B); // Medium gray
 
   // ==================== SHARED COLORS ====================
   static const Color success = Color(0xFF10B981);

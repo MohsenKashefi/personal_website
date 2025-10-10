@@ -52,43 +52,28 @@ class SkillSection extends StatelessWidget {
           return ResponsiveWrapper(
             maxWidth: width,
             minWidth: width,
-            child: Flex(
-              direction: ScreenHelper.isMobile(context)
-                  ? Axis.vertical
-                  : Axis.horizontal,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: ScreenHelper.isMobile(context) ? 0 : 2,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(70.0),
-                    child: Image.asset(
-                      "assets/person_small.png",
-                      width: 300.0,
-                    ),
+                Text(
+                  "Skills & Technologies",
+                  style: GoogleFonts.poppins(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 36.0,
+                    height: 1.3,
                   ),
                 ),
-                const SizedBox(width: 50.0),
-                Expanded(
-                  flex: ScreenHelper.isMobile(context) ? 0 : 4,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 20.0),
-                      Text(
-                        "Highlighted skills",
-                        style: GoogleFonts.oswald(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28.0,
-                          height: 1.3,
-                        ),
-                      ),
-                      const SizedBox(height: 20.0),
-                      const SkillsSection(),
-                    ],
+                const SizedBox(height: 12.0),
+                Text(
+                  "Building amazing experiences with modern technologies",
+                  style: GoogleFonts.inter(
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                    fontSize: 16.0,
                   ),
                 ),
+                const SizedBox(height: 48.0),
+                const SkillsSection(),
               ],
             ),
           );
@@ -103,65 +88,75 @@ class SkillsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      alignment: WrapAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SkillCard(label: 'Android Dev', icon: Icons.android),
-            SkillCard(label: 'Web Dev', icon: Icons.web),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SkillCard(label: 'iOS Dev', icon: Icons.apple),
-            SkillCard(label: 'Desktop Dev', icon: Icons.desktop_windows),
-          ],
-        ),
-        SizedBox(height: 30),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          alignment: WrapAlignment.center,
-          children: [
-            IconSkillCard(label: 'Flutter'),
-            IconSkillCard(label: 'Dart'),
-            IconSkillCard(label: 'Laravel'),
-            IconSkillCard(label: 'JS'),
-            IconSkillCard(label: 'Java'),
-            IconSkillCard(label: 'Python'),
-            IconSkillCard(label: 'Docker'),
-          ],
-        ),
+        _buildSkillBadge('Flutter', Icons.flutter_dash, isDark, context),
+        _buildSkillBadge('Dart', Icons.code, isDark, context),
+        _buildSkillBadge('Android', Icons.android, isDark, context),
+        _buildSkillBadge('iOS', Icons.apple, isDark, context),
+        _buildSkillBadge('Web', Icons.web, isDark, context),
+        _buildSkillBadge('Desktop', Icons.desktop_windows, isDark, context),
+        _buildSkillBadge('Laravel', Icons.language, isDark, context),
+        _buildSkillBadge('JavaScript', Icons.javascript, isDark, context),
+        _buildSkillBadge('Python', Icons.terminal, isDark, context),
+        _buildSkillBadge('Java', Icons.coffee, isDark, context),
+        _buildSkillBadge('Docker', Icons.cloud, isDark, context),
+        _buildSkillBadge('Git', Icons.source, isDark, context),
       ],
     );
   }
-}
 
-class SkillCard extends StatelessWidget {
-  const SkillCard({Key? key, required this.label, required this.icon}) : super(key: key);
-  
-  final String label;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildSkillBadge(String label, IconData icon, bool isDark, BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF424657),
-        borderRadius: BorderRadius.circular(8.0),
+        gradient: LinearGradient(
+          colors: isDark
+              ? [
+                  const Color(0xFF334155),
+                  const Color(0xFF1E293B),
+                ]
+              : [
+                  const Color(0xFFFFFFFF),
+                  const Color(0xFFF1F5F9),
+                ],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: isDark
+              ? const Color(0xFF475569)
+              : const Color(0xFFE2E8F0),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Colors.white),
-          const SizedBox(width: 8.0),
+          Icon(
+            icon,
+            size: 20,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const SizedBox(width: 8),
           Text(
             label,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
+            style: GoogleFonts.inter(
+              color: Theme.of(context).colorScheme.onBackground,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -169,24 +164,5 @@ class SkillCard extends StatelessWidget {
   }
 }
 
-class IconSkillCard extends StatelessWidget {
-  const IconSkillCard({Key? key, required this.label}) : super(key: key);
-  
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: const Color(0xFF424657),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(color: Colors.white, fontSize: 14),
-      ),
-    );
-  }
-}
+// Removed old SkillCard and IconSkillCard classes - using new modern design above
 

@@ -9,27 +9,15 @@ final List<FooterItem> footerItems = [
   FooterItem(
     iconPath: "assets/mappin.png",
     title: "ADDRESS",
-    text1: "IRAN",
-    text2: "Tehran",
+    text1: "Genova, Italy",
+    text2: "",
   ),
-  // FooterItem(
-  //   iconPath: "assets/phone.png",
-  //   title: "PHONE",
-  //   text1: "+1 618-689-9604",
-  //   text2: "+1 781-689-9632",
-  // ),
   FooterItem(
     iconPath: "assets/email.png",
     title: "EMAIL",
-    text1: "MohsenKashefi2016@yahoo.com",
+    text1: "mohsenkashefi2000@gmail.com",
     text2: "",
   ),
-  // FooterItem(
-  //   iconPath: "assets/whatsapp.png",
-  //   title: "WHATSAPP",
-  //   text1: "+234 901-134-0095",
-  //   text2: "+234 901-134-0095",
-  // )
 ];
 
 class Footer extends StatelessWidget {
