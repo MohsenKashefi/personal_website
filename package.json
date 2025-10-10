@@ -1,0 +1,13 @@
+{
+  "name": "personalwebsite",
+  "version": "1.0.0",
+  "description": "Personal website built with Flutter",
+  "scripts": {
+    "build": "flutter build web --release",
+    "start": "npx http-server ./build/web -p $PORT"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
+
