@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide CarouselController;
+import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:personalwebsite/pages/home/components/carousel_items.dart';
@@ -6,14 +6,16 @@ import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/screen_helper.dart';
 
 class Carousel extends StatelessWidget {
-  Carousel({required this.key1});
-  final GlobalKey key1;
+  const Carousel({Key? key, required this.navigationKey}) : super(key: key);
+  
+  final GlobalKey navigationKey;
+  
   @override
   Widget build(BuildContext context) {
     double carouselContainerHeight = MediaQuery.of(context).size.height *
         (ScreenHelper.isMobile(context) ? .7 : .85);
     return Container(
-      key: key1,
+      key: navigationKey,
       height: carouselContainerHeight,
       width: double.infinity,
       child: Column(

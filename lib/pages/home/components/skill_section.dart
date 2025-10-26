@@ -4,6 +4,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:personalwebsite/models/skill.dart';
 import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/screen_helper.dart';
+import 'package:personalwebsite/config/app_theme.dart';
 
 List<Skill> skills = [
   Skill(
@@ -13,6 +14,30 @@ List<Skill> skills = [
   Skill(
     skill: "Dart",
     percentage: 90,
+  ),
+  Skill(
+    skill: "Kotlin",
+    percentage: 75,
+  ),
+  Skill(
+    skill: "TypeScript",
+    percentage: 70,
+  ),
+  Skill(
+    skill: "Node.js",
+    percentage: 65,
+  ),
+  Skill(
+    skill: "MongoDB",
+    percentage: 70,
+  ),
+  Skill(
+    skill: "SQL",
+    percentage: 75,
+  ),
+  Skill(
+    skill: "AWS",
+    percentage: 60,
   ),
   Skill(
     skill: "Laravel",
@@ -29,12 +54,14 @@ List<Skill> skills = [
 ];
 
 class SkillSection extends StatelessWidget {
-  final GlobalKey SkillKey;
-  SkillSection({required this.SkillKey});
+  const SkillSection({Key? key, required this.sectionKey}) : super(key: key);
+  
+  final GlobalKey sectionKey;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: SkillKey,
+      key: sectionKey,
       child: ScreenHelper(
         desktop: _buildUi(kDesktopMaxWidth),
         tablet: _buildUi(kTabletMaxWidth),
@@ -47,52 +74,75 @@ class SkillSection extends StatelessWidget {
     return Center(
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
+          final isDark = Theme.of(context).brightness == Brightness.dark;
+
           return ResponsiveWrapper(
             maxWidth: width,
             minWidth: width,
-            child: Flex(
-              direction: ScreenHelper.isMobile(context)
-                  ? Axis.vertical
-                  : Axis.horizontal,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: ScreenHelper.isMobile(context) ? 0 : 2,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(70.0),
-                    child: Image.asset(
-                      "assets/person_small.png",
-                      width: 300.0,
+                // Section Badge
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: isDark
+                          ? [
+                              AppTheme.primaryGreen.withValues(alpha: 0.2),
+                              AppTheme.accentCyan.withValues(alpha: 0.2),
+                            ]
+                          : [
+                              AppTheme.lightPrimary.withValues(alpha: 0.15),
+                              AppTheme.lightBlue.withValues(alpha: 0.15),
+                            ],
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                      color: isDark
+                          ? AppTheme.primaryGreen.withValues(alpha: 0.4)
+                          : AppTheme.lightPrimary.withValues(alpha: 0.4),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Text(
+                    "TECH STACK",
+                    style: GoogleFonts.poppins(
+                      color: isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 12.0),
+                      letterSpacing: 2,
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 50.0,
-                ),
-                Expanded(
-                  flex: ScreenHelper.isMobile(context) ? 0 : 4,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Text(
-                        "Highlighted skills",
-                        style: GoogleFonts.oswald(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 28.0,
-                          height: 1.3,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      SkillsSection(),
-                    ],
+                const SizedBox(height: 20.0),
+
+                // Title
+                Text(
+                  "Skills & Technologies",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.oswald(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.w900,
+                    fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 40.0),
+                    height: 1.2,
+                    letterSpacing: 1,
                   ),
                 ),
+                const SizedBox(height: 16.0),
+
+                // Subtitle
+                Text(
+                  "Building amazing experiences with modern technologies",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                    fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 16.0),
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 56.0),
+                const SkillsSection(),
               ],
             ),
           );
@@ -103,92 +153,179 @@ class SkillSection extends StatelessWidget {
 }
 
 class SkillsSection extends StatelessWidget {
+  const SkillsSection({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      alignment: WrapAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SkillCard(label: 'Android Dev', icon: Icons.android),
-            SkillCard(label: 'Web Dev', icon: Icons.web),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SkillCard(label: 'iOS Dev', icon: Icons.apple),
-            SkillCard(label: 'Desktop Dev', icon: Icons.desktop_windows),
-          ],
-        ),
-        SizedBox(height: 30),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          alignment: WrapAlignment.center,
-          children: [
-            IconSkillCard(label: 'Flutter'),
-            IconSkillCard(label: 'Dart'),
-            IconSkillCard(label: 'Laravel'),
-            IconSkillCard(label: 'JS'),
-            IconSkillCard(label: 'Java'),
-            IconSkillCard(label: 'Python'),
-            IconSkillCard(label: 'Docker'),
-          ],
-        ),
+        _SkillBadge(label: 'Flutter', icon: Icons.flutter_dash, index: 0),
+        _SkillBadge(label: 'Dart', icon: Icons.code, index: 1),
+        _SkillBadge(label: 'Kotlin', icon: Icons.android, index: 2),
+        _SkillBadge(label: 'TypeScript', icon: Icons.code_sharp, index: 3),
+        _SkillBadge(label: 'Node.js', icon: Icons.dns, index: 4),
+        _SkillBadge(label: 'MongoDB', icon: Icons.storage, index: 5),
+        _SkillBadge(label: 'SQL', icon: Icons.table_chart, index: 6),
+        _SkillBadge(label: 'AWS', icon: Icons.cloud, index: 7),
+        _SkillBadge(label: 'Firebase', icon: Icons.local_fire_department, index: 8),
+        _SkillBadge(label: 'REST API', icon: Icons.api, index: 9),
+        _SkillBadge(label: 'Git', icon: Icons.source, index: 10),
+        _SkillBadge(label: 'Docker', icon: Icons.cloud_queue, index: 11),
       ],
     );
   }
 }
 
-class SkillCard extends StatelessWidget {
+class _SkillBadge extends StatefulWidget {
   final String label;
   final IconData icon;
+  final int index;
 
-  SkillCard({required this.label, required this.icon});
+  const _SkillBadge({
+    required this.label,
+    required this.icon,
+    required this.index,
+  });
+
+  @override
+  State<_SkillBadge> createState() => _SkillBadgeState();
+}
+
+class _SkillBadgeState extends State<_SkillBadge>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+
+    // Stagger animation
+    Future.delayed(Duration(milliseconds: 30 * widget.index), () {
+      if (mounted) _controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(8.0),
-      padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-      decoration: BoxDecoration(
-        color: Color(0xFF424657),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: Colors.white),
-          SizedBox(width: 8.0),
-          Text(
-            label,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colors = [
+      isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary,
+      isDark ? AppTheme.primaryPurple : AppTheme.lightSecondary,
+      isDark ? AppTheme.accentBlue : AppTheme.lightBlue,
+      isDark ? AppTheme.accentPink : AppTheme.lightAccent,
+    ];
+    final badgeColor = colors[widget.index % colors.length];
+
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return FadeTransition(
+          opacity: _fadeAnimation,
+          child: Transform.scale(
+            scale: _scaleAnimation.value,
+            child: MouseRegion(
+              onEnter: (_) => setState(() => _isHovered = true),
+              onExit: (_) => setState(() => _isHovered = false),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: _isHovered
+                        ? [
+                            badgeColor.withValues(alpha: 0.25),
+                            badgeColor.withValues(alpha: 0.15),
+                          ]
+                        : isDark
+                            ? [
+                                Colors.white.withValues(alpha: 0.1),
+                                Colors.white.withValues(alpha: 0.05),
+                              ]
+                            : [
+                                Colors.white.withValues(alpha: 0.9),
+                                Colors.white.withValues(alpha: 0.7),
+                              ],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: _isHovered
+                        ? badgeColor.withValues(alpha: 0.6)
+                        : isDark
+                            ? Colors.white.withValues(alpha: 0.2)
+                            : Colors.white.withValues(alpha: 0.8),
+                    width: _isHovered ? 2 : 1.5,
+                  ),
+                  boxShadow: _isHovered
+                      ? [
+                          BoxShadow(
+                            color: badgeColor.withValues(alpha: 0.3),
+                            blurRadius: 20,
+                            spreadRadius: 0,
+                          ),
+                        ]
+                      : [
+                          BoxShadow(
+                            color: badgeColor.withValues(alpha: 0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      widget.icon,
+                      size: ScreenHelper.responsiveIconSize(context, baseSize: 22),
+                      color: _isHovered ? badgeColor : Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      widget.label,
+                      style: GoogleFonts.inter(
+                        color: _isHovered
+                            ? badgeColor
+                            : Theme.of(context).colorScheme.onSurface,
+                        fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 15),
+                        fontWeight: _isHovered ? FontWeight.w700 : FontWeight.w600,
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
 
-class IconSkillCard extends StatelessWidget {
-  final String label;
-
-  IconSkillCard({required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: Color(0xFF424657),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(color: Colors.white, fontSize: 14),
-      ),
-    );
-  }
-}
+// Removed old SkillCard and IconSkillCard classes - using new modern design above
 
