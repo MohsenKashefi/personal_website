@@ -73,30 +73,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/person.png
-     - assets/brand1.png
-     - assets/brand2.png
-     - assets/brand3.png
-     - assets/brand4.png
-     - assets/brand5.png
-     - assets/design.png
-     - assets/develop.png
-     - assets/email.png
-     - assets/female.png
-     - assets/ios.png
-     - assets/laptop.png
-     - assets/male.png
-     - assets/mappin.png
-     - assets/person_small.png
-     - assets/phone.png
-     - assets/promote.png
-     - assets/quote.png
-     - assets/whatsapp.png
-     - assets/write.png
+     - assets/person.jpg
      - assets/wib.png
-     - assets/schoolService.png
-     - assets/ketabdar.png
-     - assets/wib_app.png
      - assets/emkan.png
      - assets/foody.png
      - assets/songBuddy.png

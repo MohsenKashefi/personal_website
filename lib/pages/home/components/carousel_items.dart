@@ -323,7 +323,7 @@ class _HeroImageSectionState extends State<_HeroImageSection>
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(38.0),
                         child: Image.asset(
-                          "assets/person.png",
+                          "assets/person.jpg",
                           fit: BoxFit.cover,
                           cacheWidth: 600,
                         ),
