@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-/// Glassmorphic card with blur effect and gradient border
+/// Advanced glassmorphic card with stunning blur effects and smooth animations
 class GlassmorphicCard extends StatefulWidget {
   final Widget child;
   final double blur;
@@ -12,18 +12,22 @@ class GlassmorphicCard extends StatefulWidget {
   final EdgeInsetsGeometry? margin;
   final BorderRadius? borderRadius;
   final bool hoverable;
+  final Gradient? gradient;
+  final List<Color>? glowColors;
 
   const GlassmorphicCard({
     Key? key,
     required this.child,
-    this.blur = 10,
-    this.opacity = 0.1,
+    this.blur = 15,
+    this.opacity = 0.15,
     this.width,
     this.height,
     this.padding,
     this.margin,
     this.borderRadius,
     this.hoverable = true,
+    this.gradient,
+    this.glowColors,
   }) : super(key: key);
 
   @override
@@ -41,14 +45,14 @@ class _GlassmorphicCardState extends State<GlassmorphicCard>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.02).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.03).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
     );
-    _elevationAnimation = Tween<double>(begin: 0.0, end: 8.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    _elevationAnimation = Tween<double>(begin: 0.0, end: 12.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
     );
   }
 
@@ -61,7 +65,12 @@ class _GlassmorphicCardState extends State<GlassmorphicCard>
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final borderRadius = widget.borderRadius ?? BorderRadius.circular(20);
+    final borderRadius = widget.borderRadius ?? BorderRadius.circular(24);
+
+    // Default glow colors based on theme
+    final glowColors = widget.glowColors ?? (isDark
+        ? [const Color(0xFF00FFA3), const Color(0xFF9D4EDD), const Color(0xFF0096FF)]
+        : [const Color(0xFF6366F1), const Color(0xFF8B5CF6), const Color(0xFFEC4899)]);
 
     return MouseRegion(
       onEnter: widget.hoverable ? (_) => _onHover(true) : null,
@@ -78,12 +87,22 @@ class _GlassmorphicCardState extends State<GlassmorphicCard>
               decoration: BoxDecoration(
                 borderRadius: borderRadius,
                 boxShadow: [
+                  // Multi-color glow effect
+                  for (int i = 0; i < glowColors.length; i++)
+                    BoxShadow(
+                      color: glowColors[i].withValues(alpha: 0.15 * _elevationAnimation.value / 12),
+                      blurRadius: 25 + _elevationAnimation.value * 2,
+                      spreadRadius: -5,
+                      offset: Offset(
+                        (i - 1) * 3.0,
+                        (i - 1) * 3.0,
+                      ),
+                    ),
+                  // Subtle shadow for depth
                   BoxShadow(
-                    color: isDark
-                        ? const Color(0xFF00FFA3).withOpacity(0.1 * _elevationAnimation.value / 8)
-                        : const Color(0xFF6366F1).withOpacity(0.2 * _elevationAnimation.value / 8),
-                    blurRadius: 20 + _elevationAnimation.value,
-                    spreadRadius: 2,
+                    color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.1),
+                    blurRadius: 30 + _elevationAnimation.value,
+                    offset: const Offset(0, 10),
                   ),
                 ],
               ),
@@ -91,33 +110,35 @@ class _GlassmorphicCardState extends State<GlassmorphicCard>
                 borderRadius: borderRadius,
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
-                    sigmaX: widget.blur,
-                    sigmaY: widget.blur,
+                    sigmaX: widget.blur + _elevationAnimation.value * 0.5,
+                    sigmaY: widget.blur + _elevationAnimation.value * 0.5,
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: widget.gradient ?? LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: isDark
                             ? [
-                                Colors.white.withOpacity(widget.opacity),
-                                Colors.white.withOpacity(widget.opacity * 0.5),
+                                Colors.white.withValues(alpha: widget.opacity),
+                                Colors.white.withValues(alpha: widget.opacity * 0.6),
+                                Colors.white.withValues(alpha: widget.opacity * 0.3),
                               ]
                             : [
-                                Colors.white.withOpacity(0.8),
-                                Colors.white.withOpacity(0.6),
+                                Colors.white.withValues(alpha: 0.9),
+                                Colors.white.withValues(alpha: 0.7),
+                                Colors.white.withValues(alpha: 0.5),
                               ],
                       ),
                       borderRadius: borderRadius,
                       border: Border.all(
                         width: 1.5,
                         color: isDark
-                            ? Colors.white.withOpacity(0.2)
-                            : Colors.white.withOpacity(0.8),
+                            ? Colors.white.withValues(alpha: 0.25)
+                            : Colors.white.withValues(alpha: 0.9),
                       ),
                     ),
-                    padding: widget.padding ?? const EdgeInsets.all(20),
+                    padding: widget.padding ?? const EdgeInsets.all(24),
                     child: widget.child,
                   ),
                 ),

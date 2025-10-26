@@ -98,6 +98,9 @@ flutter:
      - assets/ketabdar.png
      - assets/wib_app.png
      - assets/emkan.png
+     - assets/foody.png
+     - assets/songBuddy.png
+     - assets/sahand.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

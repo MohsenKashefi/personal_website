@@ -3,8 +3,7 @@ import 'package:personalwebsite/pages/home/components/carousel.dart';
 import 'package:personalwebsite/pages/home/components/cv_section.dart';
 import 'package:personalwebsite/pages/home/components/footer.dart';
 import 'package:personalwebsite/pages/home/components/header.dart';
-import 'package:personalwebsite/pages/home/components/ios_app_ad.dart';
-import 'package:personalwebsite/pages/home/components/portfolio_stats.dart';
+import 'package:personalwebsite/pages/home/components/projects_section.dart';
 import 'package:personalwebsite/pages/home/components/skill_section.dart';
 import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/globals.dart';
@@ -83,12 +82,8 @@ class Home extends StatelessWidget {
               Carousel(navigationKey: NavigationKeys.homeKey),
               const SizedBox(height: 20.0),
               CvSection(sectionKey: NavigationKeys.servicesKey),
-              IosAppAd(sectionKey: NavigationKeys.portfolioKey),
-              const SizedBox(height: 70.0),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 28.0),
-                child: PortfolioStats(),
-              ),
+              const SizedBox(height: 40.0),
+              ProjectsSection(sectionKey: NavigationKeys.portfolioKey),
               const SizedBox(height: 50.0),
               SkillSection(sectionKey: NavigationKeys.skillsKey),
               const SizedBox(height: 50.0),

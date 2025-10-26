@@ -1,9 +1,11 @@
- import 'package:flutter/material.dart';
+import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:personalwebsite/models/carousel_item_model.dart';
 import 'package:personalwebsite/config/app_theme.dart';
 import 'package:personalwebsite/utils/globalKeys.dart';
+import 'package:personalwebsite/utils/screen_helper.dart';
 
 List<CarouselItemModel> carouselItems = List.generate(
   1,
@@ -13,140 +15,332 @@ List<CarouselItemModel> carouselItems = List.generate(
   ),
 );
 
-class _HeroTextSection extends StatelessWidget {
+class _HeroTextSection extends StatefulWidget {
   const _HeroTextSection();
+
+  @override
+  State<_HeroTextSection> createState() => _HeroTextSectionState();
+}
+
+class _HeroTextSectionState extends State<_HeroTextSection>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1200),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.6, curve: Curves.easeOut),
+      ),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(-0.1, 0),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.6, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Greeting
-        Row(
-          children: [
-            const Text("👋", style: TextStyle(fontSize: 24)),
-            const SizedBox(width: 12),
-            Text(
-              "HELLO, I'M",
-              style: GoogleFonts.poppins(
-                color: isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary,
-                fontWeight: FontWeight.w700,
-                fontSize: 16.0,
-                letterSpacing: 2,
-              ),
+
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return FadeTransition(
+          opacity: _fadeAnimation,
+          child: SlideTransition(
+            position: _slideAnimation,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Greeting Badge
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: isDark
+                          ? [
+                              AppTheme.primaryGreen.withValues(alpha: 0.2),
+                              AppTheme.primaryPurple.withValues(alpha: 0.2),
+                            ]
+                          : [
+                              AppTheme.lightPrimary.withValues(alpha: 0.15),
+                              AppTheme.lightSecondary.withValues(alpha: 0.15),
+                            ],
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                      color: isDark
+                          ? AppTheme.primaryGreen.withValues(alpha: 0.4)
+                          : AppTheme.lightPrimary.withValues(alpha: 0.4),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("👋", style: TextStyle(fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 20))),
+                      const SizedBox(width: 8),
+                      Text(
+                        "HELLO, I'M",
+                        style: GoogleFonts.poppins(
+                          color: isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 13.0),
+                          letterSpacing: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Name with gradient
+                ShaderMask(
+                  shaderCallback: (bounds) => LinearGradient(
+                    colors: isDark
+                        ? [AppTheme.primaryGreen, AppTheme.accentCyan]
+                        : [AppTheme.lightPrimary, AppTheme.lightSecondary],
+                  ).createShader(bounds),
+                  child: Text(
+                    "Mohsen Kashefi",
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 54.0),
+                      fontWeight: FontWeight.w900,
+                      height: 1.1,
+                      letterSpacing: -1,
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: ScreenHelper.responsiveSpacing(context, baseSpacing: 20)),
+
+                // Role
+                Text(
+                  "Mobile Developer & Flutter Expert",
+                  style: GoogleFonts.inter(
+                    color: isDark ? AppTheme.accentPink : AppTheme.lightAccent,
+                    fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 22.0),
+                    fontWeight: FontWeight.w600,
+                    height: 1.5,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+
+                SizedBox(height: ScreenHelper.responsiveSpacing(context, baseSpacing: 24)),
+
+                // Description
+                Container(
+                  padding: EdgeInsets.only(left: ScreenHelper.responsiveSpacing(context, baseSpacing: 16)),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      left: BorderSide(
+                        color: isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary,
+                        width: 3,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    "Creating beautiful, functional, and user-friendly\napplications with cutting-edge technology.",
+                    style: GoogleFonts.inter(
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                      fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 16.0),
+                      height: 1.7,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 40),
+
+                // CTA Buttons
+                Wrap(
+                  spacing: 16,
+                  runSpacing: 16,
+                  children: [
+                    _GlowingButton(
+                      text: "View Projects",
+                      isPrimary: true,
+                      onTap: () => scrollToSection(NavigationKeys.portfolioKey),
+                    ),
+                    _GlowingButton(
+                      text: "Contact Me",
+                      isPrimary: false,
+                      onTap: () async {
+                        final Uri emailUri = Uri(
+                          scheme: 'mailto',
+                          path: 'mohsenkashefi2000@gmail.com',
+                          query: 'subject=Hello from Your Portfolio',
+                        );
+                        if (await canLaunchUrl(emailUri)) {
+                          await launchUrl(emailUri);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        
-        // Name
-        Text(
-          "Mohsen Kashefi",
-          style: GoogleFonts.poppins(
-            color: Theme.of(context).colorScheme.onBackground,
-            fontSize: 48.0,
-            fontWeight: FontWeight.w900,
-            height: 1.2,
           ),
-        ),
-        
-        const SizedBox(height: 16),
-        
-        // Role
-        Text(
-          "Mobile Developer & Flutter Expert",
-          style: GoogleFonts.inter(
-            color: isDark ? AppTheme.accentPink : AppTheme.lightAccent,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w600,
-            height: 1.5,
-          ),
-        ),
-        
-        const SizedBox(height: 20),
-        
-        // Description
-        Text(
-          "Creating beautiful, functional, and user-friendly\napplications with cutting-edge technology.",
-          style: GoogleFonts.inter(
-            color: Theme.of(context).textTheme.bodyMedium?.color,
-            fontSize: 16.0,
-            height: 1.6,
-          ),
-        ),
-        
-        const SizedBox(height: 32),
-        
-        // CTA Buttons
-        Row(
-          children: [
-            _GlowingButton(
-              text: "View Projects",
-              isPrimary: true,
-              onTap: () => scrollToSection(NavigationKeys.portfolioKey),
-            ),
-            const SizedBox(width: 16),
-            _GlowingButton(
-              text: "Contact Me",
-              isPrimary: false,
-              onTap: () async {
-                final Uri emailUri = Uri(
-                  scheme: 'mailto',
-                  path: 'mohsenkashefi2000@gmail.com',
-                  query: 'subject=Hello from Your Portfolio',
-                );
-                if (await canLaunchUrl(emailUri)) {
-                  await launchUrl(emailUri);
-                }
-              },
-            ),
-          ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
 
-class _HeroImageSection extends StatelessWidget {
+class _HeroImageSection extends StatefulWidget {
   const _HeroImageSection();
 
   @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        constraints: const BoxConstraints(
-          maxWidth: 350, // Smaller size
-          maxHeight: 400,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.0),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-              blurRadius: 30,
-              spreadRadius: 5,
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30.0),
-          child: Image.asset(
-            "assets/person.png",
-            fit: BoxFit.cover,
-            cacheWidth: 500, // Smaller cache for performance
-          ),
-        ),
+  State<_HeroImageSection> createState() => _HeroImageSectionState();
+}
+
+class _HeroImageSectionState extends State<_HeroImageSection>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.2, 1.0, curve: Curves.easeOutCubic),
       ),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.2, 0.8, curve: Curves.easeOut),
+      ),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return FadeTransition(
+          opacity: _fadeAnimation,
+          child: Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width < 600 ? 280 : (MediaQuery.of(context).size.width < 1200 ? 350 : 380),
+                  maxHeight: MediaQuery.of(context).size.width < 600 ? 360 : (MediaQuery.of(context).size.width < 1200 ? 420 : 480),
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40.0),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: isDark
+                        ? [
+                            AppTheme.primaryGreen.withValues(alpha: 0.3),
+                            AppTheme.primaryPurple.withValues(alpha: 0.3),
+                            AppTheme.accentBlue.withValues(alpha: 0.3),
+                          ]
+                        : [
+                            AppTheme.lightPrimary.withValues(alpha: 0.2),
+                            AppTheme.lightSecondary.withValues(alpha: 0.2),
+                            AppTheme.lightAccent.withValues(alpha: 0.2),
+                          ],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppTheme.primaryGreen.withValues(alpha: 0.3),
+                      blurRadius: 40,
+                      spreadRadius: -5,
+                      offset: const Offset(-10, 10),
+                    ),
+                    BoxShadow(
+                      color: AppTheme.primaryPurple.withValues(alpha: 0.3),
+                      blurRadius: 40,
+                      spreadRadius: -5,
+                      offset: const Offset(10, -10),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(40.0),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.2),
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(38.0),
+                        child: Image.asset(
+                          "assets/person.png",
+                          fit: BoxFit.cover,
+                          cacheWidth: 600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
-class _GlowingButton extends StatelessWidget {
+class _GlowingButton extends StatefulWidget {
   final String text;
   final bool isPrimary;
   final VoidCallback? onTap;
@@ -158,54 +352,119 @@ class _GlowingButton extends StatelessWidget {
   });
 
   @override
+  State<_GlowingButton> createState() => _GlowingButtonState();
+}
+
+class _GlowingButtonState extends State<_GlowingButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _glowAnimation;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 250),
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
+
+    _glowAnimation = Tween<double>(begin: 1.0, end: 1.5).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
+      onEnter: (_) {
+        setState(() => _isHovered = true);
+        _controller.forward();
+      },
+      onExit: (_) {
+        setState(() => _isHovered = false);
+        _controller.reverse();
+      },
       child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-        decoration: BoxDecoration(
-          gradient: isPrimary
-              ? LinearGradient(
-                  colors: isDark
-                      ? [AppTheme.primaryGreen, AppTheme.accentBlue]
-                      : [AppTheme.lightPrimary, AppTheme.lightSecondary],
-                )
-              : null,
-          color: !isPrimary ? Colors.transparent : null,
-          borderRadius: BorderRadius.circular(12.0),
-          border: !isPrimary
-              ? Border.all(
-                  color: isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary,
-                  width: 2,
-                )
-              : null,
-          boxShadow: isPrimary
-              ? [
-                  BoxShadow(
-                    color: (isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary)
-                        .withOpacity(0.3),
-                    blurRadius: 15,
+        onTap: widget.onTap,
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: _scaleAnimation.value,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: widget.isPrimary
+                      ? LinearGradient(
+                          colors: isDark
+                              ? [AppTheme.primaryGreen, AppTheme.accentCyan]
+                              : [AppTheme.lightPrimary, AppTheme.lightSecondary],
+                        )
+                      : null,
+                  color: !widget.isPrimary ? Colors.transparent : null,
+                  borderRadius: BorderRadius.circular(16.0),
+                  border: !widget.isPrimary
+                      ? Border.all(
+                          color: isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary,
+                          width: 2,
+                        )
+                      : Border.all(
+                          color: Colors.white.withValues(alpha: 0.3),
+                          width: 1,
+                        ),
+                  boxShadow: widget.isPrimary
+                      ? [
+                          BoxShadow(
+                            color: (isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary)
+                                .withValues(alpha: 0.4 * _glowAnimation.value),
+                            blurRadius: 20 * _glowAnimation.value,
+                            spreadRadius: 2,
+                          ),
+                        ]
+                      : [
+                          if (_isHovered)
+                            BoxShadow(
+                              color: (isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary)
+                                  .withValues(alpha: 0.3),
+                              blurRadius: 15,
+                              spreadRadius: 1,
+                            ),
+                        ],
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: ScreenHelper.responsiveSpacing(context, baseSpacing: 32),
+                  vertical: ScreenHelper.responsiveSpacing(context, baseSpacing: 16),
+                ),
+                child: Text(
+                  widget.text,
+                  style: GoogleFonts.poppins(
+                    color: widget.isPrimary
+                        ? (isDark ? AppTheme.darkBackground : Colors.white)
+                        : (isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary),
+                    fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 15.0),
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
                   ),
-                ]
-              : null,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-        child: Text(
-          text,
-          style: GoogleFonts.poppins(
-            color: isPrimary
-                ? (isDark ? AppTheme.darkBackground : Colors.white)
-                : (isDark ? AppTheme.primaryGreen : AppTheme.lightPrimary),
-            fontSize: 14.0,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
+                ),
+              ),
+            );
+          },
         ),
       ),
-    ),
     );
   }
 }
