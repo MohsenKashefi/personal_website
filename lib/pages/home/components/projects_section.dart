@@ -217,9 +217,11 @@ class _ProjectsSectionState extends State<ProjectsSection>
       ),
       itemCount: _filteredProjects.length,
       itemBuilder: (context, index) {
-        return _FlipCard3D(
-          project: _filteredProjects[index],
-          index: index,
+        return RepaintBoundary(
+          child: _FlipCard3D(
+            project: _filteredProjects[index],
+            index: index,
+          ),
         );
       },
     );

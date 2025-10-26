@@ -16,6 +16,30 @@ List<Skill> skills = [
     percentage: 90,
   ),
   Skill(
+    skill: "Kotlin",
+    percentage: 75,
+  ),
+  Skill(
+    skill: "TypeScript",
+    percentage: 70,
+  ),
+  Skill(
+    skill: "Node.js",
+    percentage: 65,
+  ),
+  Skill(
+    skill: "MongoDB",
+    percentage: 70,
+  ),
+  Skill(
+    skill: "SQL",
+    percentage: 75,
+  ),
+  Skill(
+    skill: "AWS",
+    percentage: 60,
+  ),
+  Skill(
     skill: "Laravel",
     percentage: 60,
   ),
@@ -140,16 +164,16 @@ class SkillsSection extends StatelessWidget {
       children: [
         _SkillBadge(label: 'Flutter', icon: Icons.flutter_dash, index: 0),
         _SkillBadge(label: 'Dart', icon: Icons.code, index: 1),
-        _SkillBadge(label: 'Android', icon: Icons.android, index: 2),
-        _SkillBadge(label: 'iOS', icon: Icons.apple, index: 3),
-        _SkillBadge(label: 'Web', icon: Icons.web, index: 4),
-        _SkillBadge(label: 'Desktop', icon: Icons.desktop_windows, index: 5),
-        _SkillBadge(label: 'Laravel', icon: Icons.language, index: 6),
-        _SkillBadge(label: 'JavaScript', icon: Icons.javascript, index: 7),
-        _SkillBadge(label: 'Python', icon: Icons.terminal, index: 8),
-        _SkillBadge(label: 'Java', icon: Icons.coffee, index: 9),
-        _SkillBadge(label: 'Docker', icon: Icons.cloud, index: 10),
-        _SkillBadge(label: 'Git', icon: Icons.source, index: 11),
+        _SkillBadge(label: 'Kotlin', icon: Icons.android, index: 2),
+        _SkillBadge(label: 'TypeScript', icon: Icons.javascript, index: 3),
+        _SkillBadge(label: 'Node.js', icon: Icons.dns, index: 4),
+        _SkillBadge(label: 'MongoDB', icon: Icons.storage, index: 5),
+        _SkillBadge(label: 'SQL', icon: Icons.table_chart, index: 6),
+        _SkillBadge(label: 'AWS', icon: Icons.cloud, index: 7),
+        _SkillBadge(label: 'Firebase', icon: Icons.local_fire_department, index: 8),
+        _SkillBadge(label: 'REST API', icon: Icons.api, index: 9),
+        _SkillBadge(label: 'Git', icon: Icons.source, index: 10),
+        _SkillBadge(label: 'Docker', icon: Icons.cloud_queue, index: 11),
       ],
     );
   }
@@ -194,7 +218,7 @@ class _SkillBadgeState extends State<_SkillBadge>
     );
 
     // Stagger animation
-    Future.delayed(Duration(milliseconds: 50 * widget.index), () {
+    Future.delayed(Duration(milliseconds: 30 * widget.index), () {
       if (mounted) _controller.forward();
     });
   }

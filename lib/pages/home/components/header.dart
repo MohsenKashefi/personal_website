@@ -15,7 +15,7 @@ List<HeaderItem> headerItems = [
     onTap: () => scrollToSection(NavigationKeys.homeKey),
   ),
   HeaderItem(
-    title: "SERVICES",
+    title: "ABOUT ME",
     onTap: () => scrollToSection(NavigationKeys.servicesKey),
   ),
   HeaderItem(
@@ -278,7 +278,7 @@ class Header extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -356,7 +356,7 @@ class Header extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [

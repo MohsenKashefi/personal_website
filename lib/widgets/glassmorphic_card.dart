@@ -18,7 +18,7 @@ class GlassmorphicCard extends StatefulWidget {
   const GlassmorphicCard({
     Key? key,
     required this.child,
-    this.blur = 15,
+    this.blur = 8,
     this.opacity = 0.15,
     this.width,
     this.height,
@@ -91,18 +91,18 @@ class _GlassmorphicCardState extends State<GlassmorphicCard>
                   for (int i = 0; i < glowColors.length; i++)
                     BoxShadow(
                       color: glowColors[i].withValues(alpha: 0.15 * _elevationAnimation.value / 12),
-                      blurRadius: 25 + _elevationAnimation.value * 2,
-                      spreadRadius: -5,
+                      blurRadius: 15 + _elevationAnimation.value * 1.5,
+                      spreadRadius: -3,
                       offset: Offset(
-                        (i - 1) * 3.0,
-                        (i - 1) * 3.0,
+                        (i - 1) * 2.0,
+                        (i - 1) * 2.0,
                       ),
                     ),
                   // Subtle shadow for depth
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.1),
-                    blurRadius: 30 + _elevationAnimation.value,
-                    offset: const Offset(0, 10),
+                    color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.08),
+                    blurRadius: 20 + _elevationAnimation.value,
+                    offset: const Offset(0, 8),
                   ),
                 ],
               ),

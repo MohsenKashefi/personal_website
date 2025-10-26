@@ -351,7 +351,7 @@ class _StatCardState extends State<_StatCard>
     );
 
     // Stagger animation
-    Future.delayed(Duration(milliseconds: 200 + (100 * widget.index)), () {
+    Future.delayed(Duration(milliseconds: 100 + (50 * widget.index)), () {
       if (mounted) _controller.forward();
     });
   }
