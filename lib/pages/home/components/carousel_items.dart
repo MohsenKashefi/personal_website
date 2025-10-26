@@ -145,7 +145,7 @@ class _HeroTextSectionState extends State<_HeroTextSection>
                 Text(
                   "Mobile Developer & Flutter Expert",
                   style: GoogleFonts.inter(
-                    color: isDark ? AppTheme.accentPink : AppTheme.lightAccent,
+                    color: isDark ? Colors.white.withValues(alpha: 0.7) : Colors.black.withValues(alpha: 0.6),
                     fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 22.0),
                     fontWeight: FontWeight.w600,
                     height: 1.5,

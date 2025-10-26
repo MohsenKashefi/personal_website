@@ -165,7 +165,7 @@ class SkillsSection extends StatelessWidget {
         _SkillBadge(label: 'Flutter', icon: Icons.flutter_dash, index: 0),
         _SkillBadge(label: 'Dart', icon: Icons.code, index: 1),
         _SkillBadge(label: 'Kotlin', icon: Icons.android, index: 2),
-        _SkillBadge(label: 'TypeScript', icon: Icons.javascript, index: 3),
+        _SkillBadge(label: 'TypeScript', icon: Icons.code_sharp, index: 3),
         _SkillBadge(label: 'Node.js', icon: Icons.dns, index: 4),
         _SkillBadge(label: 'MongoDB', icon: Icons.storage, index: 5),
         _SkillBadge(label: 'SQL', icon: Icons.table_chart, index: 6),

@@ -135,13 +135,6 @@ class CvSection extends StatelessWidget {
           accentColor: isDark ? AppTheme.primaryPurple : AppTheme.lightSecondary,
           index: 1,
         ),
-        _StatCard(
-          number: "100%",
-          label: "Dedication",
-          isDark: isDark,
-          accentColor: isDark ? AppTheme.accentBlue : AppTheme.lightBlue,
-          index: 2,
-        ),
       ],
     );
   }

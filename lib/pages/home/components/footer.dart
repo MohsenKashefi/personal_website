@@ -90,7 +90,7 @@ Widget _buildUi(double width, BuildContext context) {
 
           // Subtitle
           Container(
-            constraints: const BoxConstraints(maxWidth: 500),
+            constraints: const BoxConstraints(maxWidth: 700),
             child: Text(
               "Feel free to reach out for collaborations or just a friendly hello",
               style: GoogleFonts.inter(
@@ -99,6 +99,8 @@ Widget _buildUi(double width, BuildContext context) {
                 height: 1.6,
               ),
               textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
 
@@ -141,43 +143,6 @@ Widget _buildUi(double width, BuildContext context) {
               fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 14.0),
               letterSpacing: 0.3,
             ),
-          ),
-          const SizedBox(height: 8),
-
-          // Made with love
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Made with ",
-                style: GoogleFonts.inter(
-                  color: Theme.of(context).textTheme.bodySmall?.color,
-                  fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 13.0),
-                ),
-              ),
-              ShaderMask(
-                shaderCallback: (bounds) => LinearGradient(
-                  colors: [
-                    AppTheme.accentPink,
-                    AppTheme.primaryPurple,
-                  ],
-                ).createShader(bounds),
-                child: Text(
-                  "❤",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 14.0),
-                  ),
-                ),
-              ),
-              Text(
-                " and Flutter",
-                style: GoogleFonts.inter(
-                  color: Theme.of(context).textTheme.bodySmall?.color,
-                  fontSize: ScreenHelper.responsiveFontSize(context, baseSize: 13.0),
-                ),
-              ),
-            ],
           ),
 
           const SizedBox(height: 48),
