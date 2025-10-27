@@ -916,8 +916,8 @@ class _CardBackState extends State<_CardBack> {
                     ),
                   ),
 
-                  // Link Icons at Top-Right (shown on hover)
-                  if (_isHovered && (widget.project.githubUrl != null || widget.project.liveUrl != null))
+                  // Link Icons at Top-Right (always visible on mobile, shown on hover on desktop)
+                  if (widget.project.githubUrl != null || widget.project.liveUrl != null)
                     Positioned(
                       top: 12,
                       right: 12,
