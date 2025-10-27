@@ -378,6 +378,14 @@ class _FlipCard3DState extends State<_FlipCard3D>
     }
   }
 
+  void _onTap() {
+    if (_controller.isCompleted) {
+      _controller.reverse();
+    } else {
+      _controller.forward();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -386,22 +394,25 @@ class _FlipCard3DState extends State<_FlipCard3D>
         final angle = _flipAnimation.value;
         final isFront = angle < (math.pi / 2);
 
-        return MouseRegion(
-          onEnter: (_) => _onHover(true),
-          onExit: (_) => _onHover(false),
-          child: Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.001) // Perspective
-              ..scale(_scaleAnimation.value, _scaleAnimation.value, 1.0)
-              ..rotateY(angle),
-            child: isFront
-                ? _CardFront(project: widget.project, index: widget.index)
-                : Transform(
-                    alignment: Alignment.center,
-                    transform: Matrix4.identity()..rotateY(math.pi),
-                    child: _CardBack(project: widget.project, index: widget.index),
-                  ),
+        return GestureDetector(
+          onTap: _onTap,
+          child: MouseRegion(
+            onEnter: (_) => _onHover(true),
+            onExit: (_) => _onHover(false),
+            child: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001) // Perspective
+                ..scale(_scaleAnimation.value, _scaleAnimation.value, 1.0)
+                ..rotateY(angle),
+              child: isFront
+                  ? _CardFront(project: widget.project, index: widget.index)
+                  : Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.identity()..rotateY(math.pi),
+                      child: _CardBack(project: widget.project, index: widget.index),
+                    ),
+            ),
           ),
         );
       },
