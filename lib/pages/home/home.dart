@@ -9,9 +9,22 @@ import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/globals.dart';
 import 'package:personalwebsite/utils/globalKeys.dart';
 import 'package:personalwebsite/widgets/animated_background.dart';
+import 'package:personalwebsite/services/analytics_service.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+    // Track home page view
+    AnalyticsService.trackPageView('/home');
+  }
 
   @override
   Widget build(BuildContext context) {
