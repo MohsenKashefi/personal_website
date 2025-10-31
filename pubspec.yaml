@@ -55,6 +55,9 @@ dependencies:
   # UUID for session tracking
   uuid: ^4.2.0
 
+  # Supabase for dynamic content
+  supabase_flutter: ^2.5.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
