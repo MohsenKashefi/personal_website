@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -193,13 +194,38 @@ class _HeroTextSectionState extends State<_HeroTextSection>
                       text: "Contact Me",
                       isPrimary: false,
                       onTap: () async {
-                        final Uri emailUri = Uri(
-                          scheme: 'mailto',
-                          path: 'mohsenkashefi2000@gmail.com',
-                          query: 'subject=Hello from Your Portfolio',
-                        );
-                        if (await canLaunchUrl(emailUri)) {
-                          await launchUrl(emailUri);
+                        try {
+                          final String emailUrl = 'mailto:mohsenkashefi2000@gmail.com?subject=Hello%20from%20Your%20Portfolio';
+                          final Uri emailUri = Uri.parse(emailUrl);
+                          
+                          // For web, try different approaches
+                          if (kIsWeb) {
+                            // Try without mode first (web browsers handle mailto natively)
+                            try {
+                              await launchUrl(emailUri);
+                            } catch (_) {
+                              // If that fails, try with platformDefault
+                              await launchUrl(emailUri, mode: LaunchMode.platformDefault);
+                            }
+                          } else {
+                            // For mobile/desktop, use externalApplication
+                            await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+                          }
+                        } catch (e) {
+                          debugPrint('Failed to launch email: $e');
+                          // Fallback: show email address to user
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text(
+                                  'Email: mohsenkashefi2000@gmail.com\n(Please configure your browser to handle mailto links)',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.grey[800],
+                                duration: const Duration(seconds: 5),
+                              ),
+                            );
+                          }
                         }
                       },
                     ),
