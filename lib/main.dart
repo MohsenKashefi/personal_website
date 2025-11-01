@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:personalwebsite/config/app_theme.dart';
+import 'package:personalwebsite/config/supabase_config.dart';
 import 'package:personalwebsite/pages/home/home.dart';
 import 'package:personalwebsite/providers/theme_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Supabase for dynamic project loading
+  await SupabaseConfig.initialize();
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),

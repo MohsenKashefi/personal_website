@@ -20,6 +20,39 @@ class Project {
     this.liveUrl,
     this.isFeatured = false,
   });
+
+  /// Create a Project from JSON data (from Supabase)
+  factory Project.fromJson(Map<String, dynamic> json) {
+    return Project(
+      title: json['title'] as String,
+      category: json['category'] as String,
+      description: json['description'] as String? ?? '',
+      imagePath: json['image_path'] as String?,
+      iconName: json['icon_name'] as String?,
+      technologies: (json['technologies'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      githubUrl: json['github_url'] as String?,
+      liveUrl: json['live_url'] as String?,
+      isFeatured: json['is_featured'] as bool? ?? false,
+    );
+  }
+
+  /// Convert Project to JSON (for sending to Supabase)
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'category': category,
+      'description': description,
+      'image_path': imagePath,
+      'icon_name': iconName,
+      'technologies': technologies,
+      'github_url': githubUrl,
+      'live_url': liveUrl,
+      'is_featured': isFeatured,
+    };
+  }
 }
 
 // Project data

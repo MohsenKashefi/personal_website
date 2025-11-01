@@ -5,53 +5,7 @@ import 'package:personalwebsite/models/skill.dart';
 import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/screen_helper.dart';
 import 'package:personalwebsite/config/app_theme.dart';
-
-List<Skill> skills = [
-  Skill(
-    skill: "Flutter",
-    percentage: 90,
-  ),
-  Skill(
-    skill: "Dart",
-    percentage: 90,
-  ),
-  Skill(
-    skill: "Kotlin",
-    percentage: 75,
-  ),
-  Skill(
-    skill: "TypeScript",
-    percentage: 70,
-  ),
-  Skill(
-    skill: "Node.js",
-    percentage: 65,
-  ),
-  Skill(
-    skill: "MongoDB",
-    percentage: 70,
-  ),
-  Skill(
-    skill: "SQL",
-    percentage: 75,
-  ),
-  Skill(
-    skill: "AWS",
-    percentage: 60,
-  ),
-  Skill(
-    skill: "Laravel",
-    percentage: 60,
-  ),
-  Skill(
-    skill: "Python",
-    percentage: 50,
-  ),
-  Skill(
-    skill: "Java",
-    percentage: 40,
-  ),
-];
+import 'package:personalwebsite/services/skill_service.dart';
 
 class SkillSection extends StatelessWidget {
   const SkillSection({Key? key, required this.sectionKey}) : super(key: key);
@@ -152,29 +106,92 @@ class SkillSection extends StatelessWidget {
   }
 }
 
-class SkillsSection extends StatelessWidget {
+class SkillsSection extends StatefulWidget {
   const SkillsSection({Key? key}) : super(key: key);
 
   @override
+  State<SkillsSection> createState() => _SkillsSectionState();
+}
+
+class _SkillsSectionState extends State<SkillsSection> {
+  List<Skill> _skills = [];
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSkills();
+  }
+
+  Future<void> _loadSkills() async {
+    try {
+      final skills = await SkillService.fetchSkills();
+      if (mounted) {
+        setState(() {
+          _skills = skills;
+          _loading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _loading = false;
+        });
+      }
+    }
+  }
+
+  IconData _getIconForSkill(String? skillName) {
+    if (skillName == null) return Icons.code;
+
+    final name = skillName.toLowerCase();
+    if (name.contains('flutter')) return Icons.flutter_dash;
+    if (name.contains('dart')) return Icons.code;
+    if (name.contains('kotlin')) return Icons.android;
+    if (name.contains('typescript') || name.contains('javascript')) return Icons.code_sharp;
+    if (name.contains('node')) return Icons.dns;
+    if (name.contains('mongo')) return Icons.storage;
+    if (name.contains('sql')) return Icons.table_chart;
+    if (name.contains('aws') || name.contains('cloud')) return Icons.cloud;
+    if (name.contains('firebase')) return Icons.local_fire_department;
+    if (name.contains('api')) return Icons.api;
+    if (name.contains('git')) return Icons.source;
+    if (name.contains('docker')) return Icons.cloud_queue;
+    if (name.contains('python')) return Icons.code;
+    if (name.contains('java')) return Icons.coffee;
+    if (name.contains('react')) return Icons.web;
+    if (name.contains('vue')) return Icons.web;
+    if (name.contains('angular')) return Icons.web;
+    return Icons.code; // Default icon
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_loading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (_skills.isEmpty) {
+      return const Center(
+        child: Text('No skills available'),
+      );
+    }
+
     return Wrap(
       spacing: 12,
       runSpacing: 12,
       alignment: WrapAlignment.center,
-      children: [
-        _SkillBadge(label: 'Flutter', icon: Icons.flutter_dash, index: 0),
-        _SkillBadge(label: 'Dart', icon: Icons.code, index: 1),
-        _SkillBadge(label: 'Kotlin', icon: Icons.android, index: 2),
-        _SkillBadge(label: 'TypeScript', icon: Icons.code_sharp, index: 3),
-        _SkillBadge(label: 'Node.js', icon: Icons.dns, index: 4),
-        _SkillBadge(label: 'MongoDB', icon: Icons.storage, index: 5),
-        _SkillBadge(label: 'SQL', icon: Icons.table_chart, index: 6),
-        _SkillBadge(label: 'AWS', icon: Icons.cloud, index: 7),
-        _SkillBadge(label: 'Firebase', icon: Icons.local_fire_department, index: 8),
-        _SkillBadge(label: 'REST API', icon: Icons.api, index: 9),
-        _SkillBadge(label: 'Git', icon: Icons.source, index: 10),
-        _SkillBadge(label: 'Docker', icon: Icons.cloud_queue, index: 11),
-      ],
+      children: _skills.asMap().entries.map((entry) {
+        final index = entry.key;
+        final skill = entry.value;
+        return _SkillBadge(
+          label: skill.name,
+          icon: _getIconForSkill(skill.name),
+          index: index,
+        );
+      }).toList(),
     );
   }
 }

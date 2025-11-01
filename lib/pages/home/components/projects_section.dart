@@ -7,6 +7,7 @@ import 'package:personalwebsite/models/project.dart';
 import 'package:personalwebsite/config/app_theme.dart';
 import 'package:personalwebsite/utils/constants.dart';
 import 'package:personalwebsite/utils/screen_helper.dart';
+import 'package:personalwebsite/services/project_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,6 +25,9 @@ class _ProjectsSectionState extends State<ProjectsSection>
   ProjectCategory _selectedCategory = ProjectCategory.all;
   late AnimationController _filterController;
   late Animation<double> _filterAnimation;
+  List<Project> _projects = [];
+  bool _isLoading = true;
+  bool _hasError = false;
 
   @override
   void initState() {
@@ -37,6 +41,31 @@ class _ProjectsSectionState extends State<ProjectsSection>
       curve: Curves.easeOutCubic,
     );
     _filterController.forward();
+    _loadProjects();
+  }
+
+  /// Load projects from Supabase
+  Future<void> _loadProjects() async {
+    try {
+      setState(() {
+        _isLoading = true;
+        _hasError = false;
+      });
+
+      final fetchedProjects = await ProjectService.fetchProjects();
+
+      setState(() {
+        _projects = fetchedProjects;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _hasError = true;
+        _isLoading = false;
+        // Use fallback hardcoded projects
+        _projects = projects;
+      });
+    }
   }
 
   @override
@@ -47,9 +76,9 @@ class _ProjectsSectionState extends State<ProjectsSection>
 
   List<Project> get _filteredProjects {
     if (_selectedCategory == ProjectCategory.all) {
-      return projects;
+      return _projects;
     }
-    return projects
+    return _projects
         .where((project) =>
             project.category.toLowerCase() ==
             _selectedCategory.filterValue.toLowerCase())
@@ -160,11 +189,44 @@ class _ProjectsSectionState extends State<ProjectsSection>
 
             const SizedBox(height: 56),
 
+            // Loading / Error / Projects Grid
+            if (_isLoading)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(60.0),
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            else if (_hasError)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.warning_amber_rounded,
+                        size: 48,
+                        color: Colors.orange,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Using cached projects',
+                        style: GoogleFonts.inter(
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
             // Projects Grid
-            FadeTransition(
-              opacity: _filterAnimation,
-              child: _buildProjectsGrid(context),
-            ),
+            if (!_isLoading)
+              FadeTransition(
+                opacity: _filterAnimation,
+                child: _buildProjectsGrid(context),
+              ),
           ],
         ),
       ),
@@ -453,6 +515,79 @@ class _CardFront extends StatelessWidget {
     }
   }
 
+  /// Build project image - handles both URLs (from Supabase) and local assets
+  Widget _buildProjectImage(String imagePath) {
+    // Check if it's a URL (from Supabase Storage)
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return Image.network(
+        imagePath,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) {
+          // Fallback to placeholder if image fails to load
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.grey.withValues(alpha: 0.2),
+                  Colors.grey.withValues(alpha: 0.1),
+                ],
+              ),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.image_not_supported,
+                size: 60,
+                color: Colors.grey,
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      // Local asset image
+      return Image.asset(
+        imagePath,
+        fit: BoxFit.cover,
+        cacheWidth: 300,
+        errorBuilder: (context, error, stackTrace) {
+          // Fallback if asset not found
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.grey.withValues(alpha: 0.2),
+                  Colors.grey.withValues(alpha: 0.1),
+                ],
+              ),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.image_not_supported,
+                size: 60,
+                color: Colors.grey,
+              ),
+            ),
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -559,31 +694,47 @@ class _CardFront extends StatelessWidget {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
-                        child: project.iconName != null
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      accentColor.withValues(alpha: 0.2),
-                                      accentColor.withValues(alpha: 0.1),
-                                    ],
+                        // Priority: Image first, then icon, then default
+                        child: project.imagePath != null && project.imagePath!.isNotEmpty
+                            ? _buildProjectImage(project.imagePath!)
+                            : project.iconName != null && project.iconName!.isNotEmpty
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          accentColor.withValues(alpha: 0.2),
+                                          accentColor.withValues(alpha: 0.1),
+                                        ],
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        _getIconData(project.iconName!),
+                                        size: 60,
+                                        color: accentColor,
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          accentColor.withValues(alpha: 0.2),
+                                          accentColor.withValues(alpha: 0.1),
+                                        ],
+                                      ),
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.code,
+                                        size: 60,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    _getIconData(project.iconName!),
-                                    size: 60,
-                                    color: accentColor,
-                                  ),
-                                ),
-                              )
-                            : Image.asset(
-                                project.imagePath!,
-                                fit: BoxFit.cover,
-                                cacheWidth: 300,
-                              ),
                       ),
                     ),
                   ),
