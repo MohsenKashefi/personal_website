@@ -3,10 +3,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 /// Supabase configuration
 /// This connects to your portfolio dashboard backend
 class SupabaseConfig {
-  // Your Supabase project URL and anon key
+  // Your Supabase project URL and publishable key
   // These are safe to use in the frontend
   static const String supabaseUrl = 'https://ltzpgwdxosnitvojnbth.supabase.co';
-  static const String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0enBnd2R4b3NuaXR2b2puYnRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2MTcxNTgsImV4cCI6MjA3NzE5MzE1OH0.4BrkWVcLxkb3LwLiwpxm2Qbakqp8Q5P6rJ-rRtMZQek';
+  static const String supabaseAnonKey = 'sb_publishable_aPVxNjVgun4K3aVlWNhXJQ_BGe-IYaa';
 
   static SupabaseClient? _client;
 
