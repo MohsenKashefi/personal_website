@@ -765,13 +765,14 @@ section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env
     const loc = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const uR = gl.getUniformLocation(pr, 'R'), uT = gl.getUniformLocation(pr, 'T'), uM = gl.getUniformLocation(pr, 'M');
     let mx = 0, my = 0, tx = 0, ty = 0, visible = true, t0 = performance.now() - Math.random() * 60000;
-    const size = () => { const dpr = Math.min(devicePixelRatio || 1, 1.75), r = hero.getBoundingClientRect();
+    // skip while the side is hidden (it measures 0×0); the ResizeObserver below re-sizes it when it shows again
+    const size = () => { const dpr = Math.min(devicePixelRatio || 1, 1.75), r = hero.getBoundingClientRect(); if (!r.width || !r.height) return;
       cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uR, cv.width, cv.height); };
     const draw = now => { mx += (tx - mx) * .06; my += (ty - my) * .06; gl.uniform1f(uT, (now - t0) / 1000); gl.uniform2f(uM, mx, my); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); };
     const loop = now => { if (visible && !$('#sideA').hidden) draw(now); requestAnimationFrame(loop); };
     hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width - .5; ty = .5 - (e.clientY - r.top) / r.height; });
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(hero);
-    size(); addEventListener('resize', size);
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { visible = es[es.length - 1].isIntersecting; }).observe(hero);
+    size(); addEventListener('resize', size); if ('ResizeObserver' in window) new ResizeObserver(size).observe(hero);
     if (reduce) draw(performance.now()); else requestAnimationFrame(loop); };
   silk($('#wave'), $('#ahero')); silk($('#wave2'), $('#talk'));
 
@@ -1021,8 +1022,16 @@ section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env
     else if (amb) amb.out.gain.setTargetAtTime(0, amb.ac.currentTime, .4); };
   snd.addEventListener('click', e => { e.stopPropagation(); setAmb(!ambOn); });
   let pref = null; try { pref = localStorage.getItem('mk_sound'); } catch (_) {}
-  if (pref !== 'off') { const first = e => { if (e.target.closest && e.target.closest('#snd')) return; removeEventListener('pointerdown', first, true); removeEventListener('keydown', first, true); setAmb(true); };
-    addEventListener('pointerdown', first, true); addEventListener('keydown', first, true); }
+  // on by default: try to start right away (browsers allow it for some returning visitors);
+  // otherwise start on the very first tap, click or key press anywhere on the page
+  if (pref !== 'off') {
+    const GESTURES = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
+    const stopWaiting = () => GESTURES.forEach(g => removeEventListener(g, first, true));
+    const first = e => { if (e.target.closest && e.target.closest('#snd')) return; stopWaiting(); if (!ambOn) setAmb(true); };
+    GESTURES.forEach(g => addEventListener(g, first, true));
+    try { amb = mkAmb(); if (amb.ac.state === 'running') { stopWaiting(); setAmb(true); }
+      else amb.ac.resume().then(() => { if (amb.ac.state === 'running' && !ambOn && localStorage.getItem('mk_sound') !== 'off') { stopWaiting(); setAmb(true); } }).catch(() => {}); } catch (_) {}
+  }
   document.addEventListener('visibilitychange', () => { if (!amb) return; if (document.hidden) amb.ac.suspend(); else if (ambOn) amb.ac.resume(); });
   new MutationObserver(ambSide).observe(document.body, {attributes:true, attributeFilter:['class']});
 
