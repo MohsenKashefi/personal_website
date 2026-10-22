@@ -2,22 +2,38 @@ services:
   - type: web
     name: personalwebsite
     env: static
-    buildCommand: chmod +x render-build.sh && ./render-build.sh
-    staticPublishPath: ./build/web
+    # HTML/CSS/JS site in ./site; build.mjs pulls content from Supabase and writes ./dist
+    buildCommand: node site/build.mjs
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
     headers:
       - path: /*
         name: Cache-Control
         value: public, max-age=0, must-revalidate
-      - path: /assets/*
+      - path: /media/*
         name: Cache-Control
-        value: public, max-age=31536000, immutable
-      - path: /*.js
-        name: Cache-Control
-        value: public, max-age=31536000, immutable
-      - path: /*.wasm
-        name: Cache-Control
-        value: public, max-age=31536000, immutable
-      - path: /canvaskit/*
-        name: Cache-Control
-        value: public, max-age=31536000, immutable
-
+        value: public, max-age=2592000
+      # security headers (the page also carries a hash-based Content-Security-Policy <meta>)
+      - path: /*
+        name: Content-Security-Policy
+        value: frame-ancestors 'none'; object-src 'none'; base-uri 'self'
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000; includeSubDomains
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+      - path: /*
+        name: Cross-Origin-Opener-Policy
+        value: same-origin

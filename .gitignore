@@ -47,3 +47,14 @@ app.*.map.json
 # Environment secrets
 .env
 .env.*
+
+# HTML site build output
+/dist/
+
+# Supabase CLI local state
+supabase/.temp/
+
+# Raw source media (processed copies live in site/media)
+/IMG_*.JPG
+/IMG_*.MP4
+/WhatsApp Video *.mp4

@@ -1,0 +1,336 @@
+{
+ "work": [
+  {
+   "t": "Sales CRM",
+   "g": [
+    "work",
+    "web"
+   ],
+   "k": "KTS Finance · 2026",
+   "d": "Built from scratch: 190+ APIs, a 9-stage pipeline and 3 user roles.",
+   "s": "FastAPI · MongoDB · React",
+   "h": "#F3A847",
+   "i": "media/p/kts.jpg"
+  },
+  {
+   "t": "Web & Mobile Platform",
+   "g": [
+    "work",
+    "web",
+    "mobile"
+   ],
+   "k": "KTS Finance · 2026",
+   "d": "60+ screens and 50+ functions, with Stripe, Scalapay and Compass payments and OTP e-signature.",
+   "s": "Angular · Ionic · Firebase",
+   "u": "https://app.ktsfinance.com",
+   "h": "#2DD4BF",
+   "i": "media/p/kts.jpg"
+  },
+  {
+   "t": "Fotovoltaico",
+   "g": [
+    "work",
+    "web"
+   ],
+   "k": "KTS Finance · 2026",
+   "d": "Sales website with online quote, payment, e-sign and 150+ tests.",
+   "s": "Next.js · Stripe",
+   "u": "https://fotovoltaico.ktsfinance.com",
+   "h": "#FACC15",
+   "i": "media/p/fotovoltaico.jpg"
+  },
+  {
+   "t": "KTS Academy",
+   "g": [
+    "work",
+    "web"
+   ],
+   "k": "KTS Finance · 2026",
+   "d": "A 25-page training platform with courses, quizzes and certificates.",
+   "s": "Next.js · PostgreSQL",
+   "u": "https://academy.ktsfinance.com",
+   "h": "#6E8BFF",
+   "i": "media/p/academy.jpg"
+  },
+  {
+   "t": "AI Assistant",
+   "g": [
+    "work",
+    "ai"
+   ],
+   "k": "KTS Finance · 2026",
+   "d": "RAG assistant built on 35 documents, tested on 10,000 chats.",
+   "s": "Node.js · Gemini · RAG",
+   "h": "#B57BFF",
+   "i": "media/p/kts.jpg"
+  },
+  {
+   "t": "Sahand",
+   "g": [
+    "work",
+    "mobile"
+   ],
+   "k": "Omega · 2022–2023",
+   "d": "Core features of a ride-hailing app with 10,000+ downloads.",
+   "s": "Flutter",
+   "h": "#FF7A45",
+   "i": "media/p/sahand.jpg"
+  },
+  {
+   "t": "Foody AI",
+   "g": [
+    "personal",
+    "mobile",
+    "ai"
+   ],
+   "k": "Personal · 2025 – now",
+   "d": "AI nutrition app.",
+   "s": "Flutter · Gemini · 5 AWS Lambdas",
+   "u": "https://github.com/MohsenKashefi/FoodyAI",
+   "h": "#3EE08F",
+   "i": "media/p/foody.jpg"
+  },
+  {
+   "t": "Password Checker Pro",
+   "g": [
+    "personal",
+    "mobile"
+   ],
+   "k": "Open source · 2025",
+   "d": "Flutter package with 6 widgets and 7 languages, 323+ tests and 92% coverage.",
+   "s": "Flutter · Dart",
+   "u": "https://pub.dev/packages/password_checker_pro",
+   "h": "#38BDF8",
+   "i": "media/p/pcp.jpg"
+  },
+  {
+   "t": "CodeSnack",
+   "g": [
+    "personal",
+    "mobile",
+    "ai"
+   ],
+   "k": "Personal · 2025 – now",
+   "d": "AI coding tips and a 9-language playground.",
+   "s": "Kotlin",
+   "u": "https://github.com/MohsenKashefi/codeSnack",
+   "h": "#F472B6",
+   "i": "media/p/codesnack.jpg"
+  }
+ ],
+ "stack": [
+  [
+   "AI",
+   "Gemini · RAG · Vertex AI · OCR · AI Voice Agents"
+  ],
+  [
+   "Mobile",
+   "Flutter · Kotlin · Jetpack Compose · Ionic · Android · iOS"
+  ],
+  [
+   "Web",
+   "React · Next.js · Angular · TypeScript · Tailwind"
+  ],
+  [
+   "Backend",
+   "Python · FastAPI · Flask · Node.js · NestJS"
+  ],
+  [
+   "Data",
+   "PostgreSQL · MongoDB · Firestore · MySQL · Prisma"
+  ]
+ ],
+ "session": {
+  "first": {
+   "start": "2015-09",
+   "t": "First line of code",
+   "r": "Java · High school",
+   "d": "2015",
+   "li": [
+    "Started programming in Java in high school."
+   ]
+  },
+  "clips": [
+   {
+    "lane": 0,
+    "start": "2022-05",
+    "end": "2023-11",
+    "color": "#F3A847",
+    "hollow": false,
+    "t": "Omega",
+    "r": "Flutter Developer",
+    "d": "May 2022 – Nov 2023 · Tehran",
+    "li": [
+     "Core features of Sahand, a ride-hailing app with 10,000+ downloads.",
+     "5+ mobile apps for 10,000+ users, with maps, live tracking and push notifications.",
+     "Laravel APIs and MySQL queries made 25% faster."
+    ]
+   },
+   {
+    "lane": 0,
+    "start": "2023-12",
+    "end": "2024-10",
+    "color": null,
+    "hollow": true,
+    "t": "Relocation",
+    "r": "Career break",
+    "d": "Dec 2023 – Oct 2024 · Genoa",
+    "li": [
+     "Moved to Italy to start an M.Sc. in Robotics Engineering."
+    ]
+   },
+   {
+    "lane": 0,
+    "start": "2024-11",
+    "end": "2025-04",
+    "color": "#F3A847",
+    "hollow": false,
+    "t": "Intelligent Innovations Lab",
+    "r": "Flutter Developer",
+    "d": "Nov 2024 – Apr 2025 · Remote, Canada",
+    "li": [
+     "Apps 40% more responsive through layout and state work.",
+     "35% less duplicated code with reusable UI components.",
+     "Releases 30% more reliable with Docker and GitHub Actions."
+    ]
+   },
+   {
+    "lane": 0,
+    "start": "2026-01",
+    "end": null,
+    "color": "#F3A847",
+    "hollow": false,
+    "t": "KTS Finance",
+    "r": "Full-Stack Developer",
+    "d": "Jan 2026 – now · Brescia",
+    "li": [
+     "Ownership of 7 company systems in under 10 months.",
+     "A sales CRM with 190+ APIs, a web and mobile platform, two sales websites, a training academy and an AI assistant.",
+     "6+ services shipped with Docker and GitHub Actions."
+    ]
+   },
+   {
+    "lane": 1,
+    "start": "2020-12",
+    "end": "2022-09",
+    "color": "#72C6BE",
+    "hollow": false,
+    "t": "Freelance",
+    "r": "Full-Stack Developer",
+    "d": "Dec 2020 – Sep 2022 · Remote",
+    "li": [
+     "4 full-stack apps for clients with 500+ active users.",
+     "Each project owned from requirements to launch and support."
+    ]
+   },
+   {
+    "lane": 1,
+    "start": "2025-05",
+    "end": "2025-12",
+    "color": "#72C6BE",
+    "hollow": false,
+    "t": "Independent",
+    "r": "Independent Developer",
+    "d": "May – Dec 2025 · Remote",
+    "li": [
+     "Built and published Foody AI, CodeSnack and Password Checker Pro."
+    ]
+   },
+   {
+    "lane": 2,
+    "start": "2018-09",
+    "end": "2022-07",
+    "color": "#B9C7C4",
+    "hollow": false,
+    "t": "B.Sc. Computer Engineering",
+    "r": "Semnan University",
+    "d": "2018 – 2022 · Iran",
+    "li": [
+     "C++ Teaching Assistant for 50+ students."
+    ]
+   },
+   {
+    "lane": 2,
+    "start": "2023-09",
+    "end": null,
+    "color": "#B9C7C4",
+    "hollow": false,
+    "t": "M.Sc. Robotics Engineering",
+    "r": "University of Genoa",
+    "d": "2023 – now · Italy",
+    "li": [
+     "Degree in progress."
+    ]
+   },
+   {
+    "lane": 3,
+    "start": "2021-01",
+    "end": "2021-12",
+    "color": "#E3957E",
+    "hollow": false,
+    "t": "WIB",
+    "r": "Who Is Better?",
+    "d": "2021 · Personal",
+    "li": [
+     "Flutter and Node.js quiz game with 40 levels and a leaderboard."
+    ]
+   },
+   {
+    "lane": 3,
+    "start": "2025-01",
+    "end": "2025-06",
+    "color": "#E3957E",
+    "hollow": false,
+    "t": "Password Checker Pro",
+    "r": "Open source",
+    "d": "2025 · pub.dev",
+    "li": [
+     "Flutter package with 6 widgets and 7 languages.",
+     "323+ tests, 92% coverage."
+    ]
+   },
+   {
+    "lane": 3,
+    "start": "2025-07",
+    "end": null,
+    "color": "#E3957E",
+    "hollow": false,
+    "t": "Foody AI · CodeSnack",
+    "r": "Personal",
+    "d": "2025 – now",
+    "li": [
+     "Foody AI: AI nutrition app with Flutter, Gemini and 5 AWS Lambdas.",
+     "CodeSnack: Kotlin app with AI coding tips and a 9-language playground."
+    ]
+   },
+   {
+    "lane": 0,
+    "start": "2020-05",
+    "end": "2020-12",
+    "color": "#F3A847",
+    "hollow": false,
+    "t": "Teaching Assistant",
+    "r": "C++ · Semnan University",
+    "d": "May – Dec 2020",
+    "li": [
+     "Helped students with C++ assignments, debugging and problem-solving.",
+     "Designed and reviewed practice questions, exercises and learning materials."
+    ]
+   },
+   {
+    "lane": 1,
+    "start": "2020-06",
+    "end": "2020-10",
+    "color": "#72C6BE",
+    "hollow": false,
+    "t": "Flutter internship",
+    "r": "Nahira",
+    "d": "Jun – Oct 2020 · Remote",
+    "li": [
+     "Cross-platform mobile apps with Flutter and Dart.",
+     "Built interfaces from Figma designs and integrated features with GraphQL."
+    ]
+   }
+  ]
+ }
+}
