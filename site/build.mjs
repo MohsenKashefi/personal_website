@@ -11,7 +11,8 @@ const here = dirname(fileURLToPath(import.meta.url));
 const out = join(here, '..', 'dist');
 const SB = 'https://ltzpgwdxosnitvojnbth.supabase.co/rest/v1/';
 const SBK = 'sb_publishable_aPVxNjVgun4K3aVlWNhXJQ_BGe-IYaa'; // public, publishable key (RLS limits it to reads)
-const SITE = (process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL || 'https://mohsenkashefi.live').replace(/\/$/, '');
+// the public domain; SITE_URL can override it (Render's own *.onrender.com address is deliberately not used)
+const SITE = (process.env.SITE_URL || 'https://mohsenkashefi.live').replace(/\/$/, '');
 
 const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const sb = async path => {
