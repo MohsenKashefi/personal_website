@@ -80,12 +80,12 @@ h1,h2,h3{font-weight:700;letter-spacing:-.045em;line-height:.92;text-wrap:balanc
 .hd .menu{display:none;background:none;border:0;cursor:pointer;padding:10px 0;font-size:.92rem;font-weight:300;justify-self:start}
 .hd .b-only,.artist .hd .a-only{display:none}.artist .hd .b-only{display:flex}
 .artist .hd a.b-only,.artist .hd .talkl.b-only{display:inline-block}
-.drawer{position:fixed;inset:calc(76px + env(safe-area-inset-top,0px)) 0 auto;z-index:49;display:grid;gap:4px;padding:18px max(var(--pad),env(safe-area-inset-left,0px)) 26px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(246,242,234,.08)}
-.drawer[hidden]{display:none}
-.drawer a{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.9rem;letter-spacing:-.02em;padding:6px 0;color:#F6F2EA}
-.drawer .soc{display:flex;gap:22px;margin-top:14px;font-size:.9rem;color:var(--a-mute)}
-.drawer .soc a{font-family:var(--f-sans);font-size:.9rem;color:inherit}
-.artist .drawer .a-only,.drawer .b-only{display:none}.artist .drawer .b-only{display:block}
+.mnav{position:fixed;inset:calc(76px + env(safe-area-inset-top,0px)) 0 auto;z-index:49;display:grid;gap:4px;padding:18px max(var(--pad),env(safe-area-inset-left,0px)) 26px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(246,242,234,.08)}
+.mnav[hidden]{display:none}
+.mnav a{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.9rem;letter-spacing:-.02em;padding:6px 0;color:#F6F2EA}
+.mnav .soc{display:flex;gap:22px;margin-top:14px;font-size:.9rem;color:var(--a-mute)}
+.mnav .soc a{font-family:var(--f-sans);font-size:.9rem;color:inherit}
+.artist .mnav .a-only,.mnav .b-only{display:none}.artist .mnav .b-only{display:block}
 section[id],header[id],footer[id]{scroll-margin-top:84px}
 /* one section = one screen: clicking a header link frames exactly that section */
 section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env(safe-area-inset-top,0px));padding-bottom:clamp(24px,5svh,56px)}
@@ -554,7 +554,7 @@ section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env
     <a class="talkl a-only" href="#talk">Let’s Talk</a><a class="talkl b-only" href="#bcontact">Let’s Talk</a>
   </div>
 </header>
-<nav class="drawer" id="drawer" aria-label="Menu" hidden>
+<nav class="mnav" id="drawer" aria-label="Menu" hidden>
   <a class="a-only" href="#work">Work</a><a class="a-only" href="#stack">Stack</a><a class="a-only" href="#exp">Experience</a><a class="a-only" href="#talk">Let’s Talk</a>
   <a class="b-only" href="#record">Music</a><a class="b-only" href="#roll">Photos</a><a class="b-only" href="#bcontact">Let’s Talk</a>
   <div class="soc"><a href="https://www.linkedin.com/in/mohsen-kashefi-825b7b18a/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/MohsenKashefi" target="_blank" rel="noopener">GitHub</a><a href="https://soundcloud.com/mohsen-kashefi" target="_blank" rel="noopener">SoundCloud</a></div>
