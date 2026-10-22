@@ -236,6 +236,8 @@ section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env
 .idx li{grid-template-columns:minmax(0,1fr)}
 .idx li .inl{grid-row:2}
 .idx button.nm{display:flex!important;align-items:baseline;gap:18px;flex-wrap:wrap}
+/* desktop: only the name itself is the hover target, so moving towards the details panel doesn't switch projects */
+@media (hover:hover) and (min-width:861px){.idx button.nm{width:fit-content!important;max-width:100%}}
 .idx .tg{font-family:var(--f-mono);font-weight:400;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--a-mute);white-space:nowrap;opacity:.8}
 .idx .inl a{color:var(--a-acc)}
 .idx .inl{display:none}
@@ -806,8 +808,15 @@ section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env
     aura.style.setProperty('--ax', `${tr.left - sr.left + tr.width / 2 - aura.offsetWidth / 2}px`); aura.style.setProperty('--ay', `${tr.top - sr.top + tr.height / 2 - aura.offsetHeight / 2}px`);
     aura.classList.add('on'); };
   const clearW = () => { list.classList.remove('has'); list.querySelectorAll('.nm').forEach(b => b.classList.remove('on')); cap.innerHTML = capRest; wash.classList.remove('on'); aura.classList.remove('on'); };
-  list.addEventListener('pointerover', e => { const b = e.target.closest('.nm'); if (b && matchMedia('(hover:hover)').matches) showW(+b.dataset.i); });
-  list.addEventListener('pointerleave', () => { if (matchMedia('(hover:hover)').matches) clearW(); });
+  // hover intent: the first name shows at once; switching to another waits a moment, so passing over names on the way to the panel doesn't change it
+  let hovT = 0;
+  list.addEventListener('pointerover', e => { const b = e.target.closest('.nm'); if (!b || !matchMedia('(hover:hover)').matches) return; clearTimeout(hovT); const i = +b.dataset.i; hovT = setTimeout(() => showW(i), list.classList.contains('has') ? 140 : 0); });
+  list.addEventListener('pointerout', e => { if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('.nm')) clearTimeout(hovT); });
+  // keep the details open while the pointer is over the names OR the details panel (so its link can be clicked);
+  // clear only after leaving both, with a short grace period
+  const idxBox = list.parentElement; let leaveT = 0;
+  idxBox.addEventListener('pointerenter', () => clearTimeout(leaveT));
+  idxBox.addEventListener('pointerleave', () => { if (matchMedia('(hover:hover)').matches) leaveT = setTimeout(clearW, 450); });
   list.addEventListener('focusin', e => { const b = e.target.closest('.nm'); if (b) showW(+b.dataset.i); });
   list.addEventListener('click', e => { const b = e.target.closest('.nm'); if (!b) return; const li = b.parentElement; const open = li.classList.toggle('open'); list.querySelectorAll('li').forEach(x => x !== li && x.classList.remove('open')); if (open) showW(+b.dataset.i); });
 
