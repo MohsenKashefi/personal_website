@@ -59,7 +59,7 @@ swap(/<ol id="idxList"><\/ol>/, '<ol id="idxList">' + data.work.map((w, i) => `<
 swap(/<ul id="layList"><\/ul>/, '<ul id="layList">' + data.stack.map(([n, t], i) => `<li><button data-i="${i}"><span class="k">${esc(n)}</span><span class="t">${esc(t)}</span></button></li>`).join('') + '</ul>');
 const cur = data.session.clips.find(c => c.lane === 0 && !c.end) || data.session.clips.at(-1);
 // the timeline lanes, pre-rendered with the same geometry as the page script, so every role is in the HTML
-{ const S0 = 2015, END = (2026 - S0) * 12 + 10, mo = (y, m) => (y - S0) * 12 + m - 1, ym = v => { const [y, m] = v.split('-').map(Number); return mo(y, m); }, pct = v => v / END * 100;
+{ const S0 = 2015, NOW = new Date(), END = Math.max((2026 - S0) * 12 + 10, (NOW.getFullYear() - S0) * 12 + NOW.getMonth() + 1), mo = (y, m) => (y - S0) * 12 + m - 1, ym = v => { const [y, m] = v.split('-').map(Number); return mo(y, m); }, pct = v => v / END * 100;
   const C = data.session.clips.map(c => ({ ...c, s: ym(c.start), e: c.end ? ym(c.end) : END }));
   const LANES = ['Work', 'Intern · Freelance · Indie', 'Study', 'Projects'];
   const okHex = v => /^#[0-9a-f]{3,8}$/i.test(v || '') ? v : '#86A09E';
@@ -99,7 +99,7 @@ const csp = [
   `script-src 'self' ${hashes.join(' ')}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src https://fonts.gstatic.com",
-  "img-src 'self' data:",
+  "img-src 'self' data: https://ltzpgwdxosnitvojnbth.supabase.co",
   "media-src 'self'",
   "connect-src 'self' https://ltzpgwdxosnitvojnbth.supabase.co",
   "object-src 'none'", "base-uri 'self'", "form-action 'self'", "upgrade-insecure-requests",

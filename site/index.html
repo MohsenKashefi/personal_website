@@ -868,7 +868,8 @@ html.intro-open{overflow:hidden}
 
   // 8 · the session: each role is a clip; play sweeps a playhead through the years with a soft note per clip
   let mountSession;
-  (() => { const S0 = 2015, END = (2026 - S0) * 12 + 10, mo = (y, m) => (y - S0) * 12 + m - 1;
+  // the timeline always reaches the current month, so new roles never fall off the end
+  (() => { const S0 = 2015, NOW = new Date(), END = Math.max((2026 - S0) * 12 + 10, (NOW.getFullYear() - S0) * 12 + NOW.getMonth() + 1), mo = (y, m) => (y - S0) * 12 + m - 1;
     const ym = v => { const [y, m] = v.split('-').map(Number); return mo(y, m); };
     const LANES = ['Work','Intern · Freelance · Indie','Study','Projects'], pct = v => v / END * 100;
     const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -902,7 +903,7 @@ html.intro-open{overflow:hidden}
       FIRST = {...data.first, at:ym(data.first.start), li:data.first.li || []};
       // the clip shown at rest: the current job (work lane, still running), else the latest clip
       CUR = C.findIndex(c => c.l === 0 && c.e === END); if (CUR < 0) CUR = C.reduce((k, c, i) => c.s > C[k].s ? i : k, 0);
-      $('#sYrs').innerHTML = Array.from({length:12}, (_, i) => `<span style="left:${pct(mo(S0 + i, 1))}%">${S0 + i}</span>`).join('');
+      $('#sYrs').innerHTML = Array.from({length:Math.floor(END / 12) + 1}, (_, i) => `<span style="left:${pct(mo(S0 + i, 1))}%">${S0 + i}</span>`).join('');
       $('#sLanes').innerHTML = LANES.map((n, l) => `<div class="lane"><div class="ln">${n}</div><div class="tr">${C.map((c, i) => c.l === l ? `<button class="clip${c.h ? ' hollow' : ''}" data-i="${i}" style="--c:${c.c || '#86A09E'};left:${pct(c.s)}%;width:calc(${pct(c.e - c.s)}% - 4px)" title="${c.t} · ${c.d}">${c.t}</button>` : '').join('')}</div></div>`).join('');
       const old = $('#sFirst'); if (old) old.remove();
       $('#sArr').insertAdjacentHTML('beforeend', `<button class="first" id="sFirst" style="left:calc(var(--lw) + (100% - var(--lw)) * ${FIRST.at / END})" aria-label="${FIRST.d}, ${FIRST.t.toLowerCase()}"><span>First code · ${FIRST.r.split(' · ')[0]}</span></button>`);
