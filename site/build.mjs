@@ -58,6 +58,12 @@ const link = w => /^https:\/\//.test(w.u || '') ? `<a href="${esc(w.u)}" target=
 swap(/<ol id="idxList"><\/ol>/, '<ol id="idxList">' + data.work.map((w, i) => `<li data-g="${esc(w.g.join(' '))}"><button class="nm" data-i="${i}"><span class="nmt">${esc(w.t)}</span><span class="tg">${w.g.map(x => esc(TAGN[x] || x)).join(' · ')}</span></button><div class="inl">${/^(media\/|https:\/\/)/.test(w.i || '') ? `<img class="av" src="${esc(w.i)}" alt="" width="76" height="76" loading="lazy" decoding="async" style="--ring:${/^#[0-9a-f]{3,8}$/i.test(w.h) ? w.h : '#F3A847'}">` : ''}<span>${esc(w.d)}</span><span class="stk">${esc(w.s)}</span>${link(w)}</div></li>`).join('') + '</ol>');
 swap(/<ul id="layList"><\/ul>/, '<ul id="layList">' + data.stack.map(([n, t], i) => `<li><button data-i="${i}"><span class="k">${esc(n)}</span><span class="t">${esc(t)}</span></button></li>`).join('') + '</ul>');
 const cur = data.session.clips.find(c => c.lane === 0 && !c.end) || data.session.clips.at(-1);
+// the timeline lanes, pre-rendered with the same geometry as the page script, so every role is in the HTML
+{ const S0 = 2015, END = (2026 - S0) * 12 + 10, mo = (y, m) => (y - S0) * 12 + m - 1, ym = v => { const [y, m] = v.split('-').map(Number); return mo(y, m); }, pct = v => v / END * 100;
+  const C = data.session.clips.map(c => ({ ...c, s: ym(c.start), e: c.end ? ym(c.end) : END }));
+  const LANES = ['Work', 'Intern · Freelance · Indie', 'Study', 'Projects'];
+  const okHex = v => /^#[0-9a-f]{3,8}$/i.test(v || '') ? v : '#86A09E';
+  swap(/<div id="sLanes"><\/div>/, '<div id="sLanes">' + LANES.map((n, l) => `<div class="lane"><div class="ln">${n}</div><div class="tr">${C.map((c, i) => c.lane === l ? `<button class="clip${c.hollow ? ' hollow' : ''}" data-i="${i}" style="--c:${okHex(c.color)};left:${pct(c.s)}%;width:calc(${pct(c.e - c.s)}% - 4px)" title="${esc(c.t)} · ${esc(c.d)}">${esc(c.t)}</button>` : '').join('')}</div></div>`).join('') + '</div>'); }
 swap(/<div class="det" id="sDet" aria-live="polite"><\/div>/, `<div class="det" id="sDet" aria-live="polite"><div><h3>${esc(cur.t)}</h3><p class="m">${esc(cur.r)}<br>${esc(cur.d)}</p></div><ul>${cur.li.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>`);
 
 // 3 · absolute URLs for canonical / social cards when the site URL is known
@@ -65,6 +71,25 @@ if (SITE) {
   swap(/<!--SEO:CANONICAL-->/, `<link rel="canonical" href="${SITE}/">\n<meta property="og:url" content="${SITE}/">`);
   html = html.replace(/content="\/og\.jpg"/g, `content="${SITE}/og.jpg"`).replace(/"\/media\//g, `"${SITE}/media/`);
 } else swap(/<!--SEO:CANONICAL-->\n?/, '');
+
+// structured data (schema.org): the person, the site, the projects and the single, with absolute URLs
+{ const abs = p => /^https?:/.test(p || '') ? p : `${SITE}/${String(p || '').replace(/^\//, '')}`;
+  const person = { '@type': 'Person', '@id': `${SITE}/#person`, name: 'Mohsen Kashefi', url: `${SITE}/`, image: abs('media/portrait.jpg'),
+    jobTitle: 'Software Engineer', description: 'Software engineer and full-stack developer for web, mobile and AI in Brescia, Italy. Also a musician.',
+    email: 'mailto:MohsenKashefi2016@yahoo.com', telephone: '+39 351 380 7875',
+    address: { '@type': 'PostalAddress', addressLocality: 'Brescia', addressCountry: 'IT' },
+    worksFor: { '@type': 'Organization', name: 'KTS Finance', url: 'https://www.ktsfinance.com' },
+    alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'Semnan University' }, { '@type': 'CollegeOrUniversity', name: 'University of Genoa' }],
+    knowsAbout: [...new Set(data.stack.flatMap(([, t]) => t.split(' · ')))],
+    sameAs: ['https://www.linkedin.com/in/mohsen-kashefi-825b7b18a/', 'https://github.com/MohsenKashefi', 'https://soundcloud.com/mohsen-kashefi'] };
+  const graph = [
+    { '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: 'Mohsen Kashefi', inLanguage: 'en', publisher: { '@id': `${SITE}/#person` } },
+    { '@type': 'ProfilePage', '@id': `${SITE}/#profile`, url: `${SITE}/`, name: 'Mohsen Kashefi · Software Engineer & Artist', isPartOf: { '@id': `${SITE}/#website` }, mainEntity: { '@id': `${SITE}/#person` }, dateModified: new Date().toISOString().slice(0, 10) },
+    person,
+    { '@type': 'ItemList', name: 'Projects by Mohsen Kashefi', itemListElement: data.work.map((w, i) => ({ '@type': 'ListItem', position: i + 1,
+      item: { '@type': 'CreativeWork', name: w.t, description: w.d, keywords: w.s, creator: { '@id': `${SITE}/#person` }, ...(w.i ? { image: abs(w.i) } : {}), ...(/^https:/.test(w.u || '') ? { url: w.u } : {}) } })) },
+    { '@type': 'MusicRecording', name: 'Naboodi', byArtist: { '@id': `${SITE}/#person` }, url: 'https://soundcloud.com/mohsen-kashefi/naboodi', image: abs('media/naboodi.jpg') } ];
+  swap(/<!--SEO:JSONLD-->/, `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')}</script>`); }
 
 // 4 · Content-Security-Policy: only this page's own inline script (by hash), our media, Google Fonts,
 //     Supabase (content) and the analytics endpoint. frame-ancestors is sent as a header (render.yaml).
@@ -76,7 +101,7 @@ const csp = [
   "font-src https://fonts.gstatic.com",
   "img-src 'self' data:",
   "media-src 'self'",
-  "connect-src 'self' https://ltzpgwdxosnitvojnbth.supabase.co https://portfolio-dashboard-three-orpin.vercel.app",
+  "connect-src 'self' https://ltzpgwdxosnitvojnbth.supabase.co",
   "object-src 'none'", "base-uri 'self'", "form-action 'self'", "upgrade-insecure-requests",
 ].join('; ');
 swap(/<meta charset="utf-8">/, `<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="${csp}">`);
@@ -86,6 +111,8 @@ await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
 await writeFile(join(out, 'index.html'), html);
 for (const f of ['media', 'favicon.svg', 'apple-touch-icon.png', 'og.jpg']) await cp(join(here, f), join(out, f), { recursive: true });
+await writeFile(join(out, 'site.webmanifest'), JSON.stringify({ name: 'Mohsen Kashefi', short_name: 'Mohsen', description: 'Software engineer and artist', start_url: '/', display: 'standalone', background_color: '#0A1214', theme_color: '#0A1214',
+  icons: [{ src: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }, { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' }] }, null, 1));
 await writeFile(join(out, 'robots.txt'), `User-agent: *\nAllow: /\n${SITE ? `Sitemap: ${SITE}/sitemap.xml\n` : ''}`);
-if (SITE) await writeFile(join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${SITE}/</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod></url>\n</urlset>\n`);
+if (SITE) await writeFile(join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n  <url><loc>${SITE}/</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod><image:image><image:loc>${SITE}/media/portrait.jpg</image:loc></image:image><image:image><image:loc>${SITE}/og.jpg</image:loc></image:image></url>\n</urlset>\n`);
 console.log(`built dist/ ${SITE ? 'for ' + SITE : '(no SITE_URL: canonical and sitemap skipped)'}`);

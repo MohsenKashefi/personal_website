@@ -3,31 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mohsen Kashefi · Full-Stack Developer & Artist</title>
-<meta name="description" content="Mohsen Kashefi, full-stack developer for web, mobile and AI in Brescia, Italy. Sales CRM, web and mobile platforms, AI assistants, Flutter apps. Also a musician: listen to Naboodi.">
+<title>Mohsen Kashefi · Software Engineer & Artist</title>
+<meta name="description" content="Mohsen Kashefi is a software engineer and full-stack developer in Brescia, Italy, building web, mobile and AI products: a sales CRM with 190+ APIs, an insurance CRM, AI assistants and Flutter apps. Also a musician: listen to Naboodi.">
 <meta name="author" content="Mohsen Kashefi">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:alt" content="Mohsen Kashefi, software engineer and artist, Brescia">
 <meta name="theme-color" content="#0A1214">
 <meta name="color-scheme" content="dark">
 <!--SEO:CANONICAL-->
 <meta property="og:type" content="profile">
 <meta property="og:site_name" content="Mohsen Kashefi">
-<meta property="og:title" content="Mohsen Kashefi · Full-Stack Developer & Artist">
-<meta property="og:description" content="Software, built with intention. Full-stack developer for web, mobile and AI in Brescia, Italy.">
+<meta property="og:title" content="Mohsen Kashefi · Software Engineer & Artist">
+<meta property="og:description" content="Software, built with intention. Software engineer and full-stack developer for web, mobile and AI in Brescia, Italy.">
 <meta property="og:image" content="/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mohsen Kashefi · Full-Stack Developer & Artist">
-<meta name="twitter:description" content="Software, built with intention. Full-stack developer for web, mobile and AI in Brescia, Italy.">
+<meta name="twitter:title" content="Mohsen Kashefi · Software Engineer & Artist">
+<meta name="twitter:description" content="Software, built with intention. Software engineer and full-stack developer for web, mobile and AI in Brescia, Italy.">
 <meta name="twitter:image" content="/og.jpg">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
- {"@type":"Person","name":"Mohsen Kashefi","jobTitle":"Full-Stack Developer","email":"mailto:MohsenKashefi2016@yahoo.com","telephone":"+39 351 380 7875","image":"/media/portrait.jpg","address":{"@type":"PostalAddress","addressLocality":"Brescia","addressCountry":"IT"},"worksFor":{"@type":"Organization","name":"KTS Finance"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"Semnan University"},{"@type":"CollegeOrUniversity","name":"University of Genoa"}],"knowsAbout":["Full-stack development","Web development","Mobile development","Flutter","FastAPI","React","Next.js","Angular","Node.js","AI","RAG"],"sameAs":["https://www.linkedin.com/in/mohsen-kashefi-825b7b18a/","https://github.com/MohsenKashefi","https://soundcloud.com/mohsen-kashefi"]},
- {"@type":"MusicRecording","name":"Naboodi","byArtist":{"@type":"Person","name":"Mohsen Kashefi"},"url":"https://soundcloud.com/mohsen-kashefi/naboodi","image":"/media/naboodi.jpg"}
-]}
-</script>
+<!--SEO:JSONLD-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Geist:wght@200;300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=VT323&display=swap">
@@ -1083,13 +1082,16 @@ html.intro-open{overflow:hidden}
   sb('skills?select=name,category,order_index&is_visible=eq.true&order=order_index').then(rows => { if (!rows.length) return; const l = cleanStack(toStack(rows)); if (same(l, LAY)) return; LAY = l; renderStack(); layOn(0); }).catch(() => {});
   sb('experience?select=*&order=order_index').then(rows => { if (!rows.some(r => r.kind === 'clip')) return; const x = cleanSession(toSession(rows)); if (same(x, DATA.session)) return; DATA.session = x; mountSession(x); }).catch(() => {});
 
-  /* ---------- analytics: same endpoint and payload as the old Flutter AnalyticsService ---------- */
-  if (!/^(localhost|127\.|0\.0\.0\.0|$)/.test(location.hostname)) {
-    const API = 'https://portfolio-dashboard-three-orpin.vercel.app/api/analytics/track';
+  /* ---------- analytics: one row per page/section view, straight into Supabase page_views.
+     Visitors can only INSERT there (RLS); nothing can be read back with the public key. No cookies, no IP stored. ---------- */
+  if (!/^(localhost|127\.|0\.0\.0\.0|$)/.test(location.hostname) && !/bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent)) {
     let sid; try { sid = sessionStorage.getItem('mk_sid') || crypto.randomUUID(); sessionStorage.setItem('mk_sid', sid); } catch (_) { sid = String(Date.now()) + Math.random(); }
+    const ua = navigator.userAgent, device = /iPad|Tablet/i.test(ua) ? 'tablet' : /Mobi|Android|iPhone/i.test(ua) ? 'mobile' : 'desktop';
+    let ref = ''; try { ref = document.referrer ? new URL(document.referrer).origin : ''; if (ref === location.origin) ref = ''; } catch (_) {}
     const sent = new Set();
-    const track = page => { if (sent.has(page)) return; sent.add(page);
-      fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_path:page, session_id:sid, timestamp:new Date().toISOString()}), keepalive:true}).catch(() => {}); };
+    const track = page => { if (!page || sent.has(page)) return; sent.add(page);
+      fetch(SB + 'page_views', {method:'POST', keepalive:true, headers:{apikey:SBK, Authorization:'Bearer ' + SBK, 'Content-Type':'application/json', Prefer:'return=minimal'},
+        body:JSON.stringify({page_path:page, session_id:sid.slice(0, 64), device_type:device, referrer:ref.slice(0, 300) || null, user_agent:ua.slice(0, 400)})}).catch(() => {}); };
     track('/home');
     const PAGES = {ahero:'/home', work:'/work', stack:'/stack', exp:'/experience', talk:'/contact', night:'/artist', record:'/artist/music', roll:'/artist/photos', bcontact:'/artist/contact'};
     if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) track(PAGES[e.target.id]); }), {threshold:.35});
