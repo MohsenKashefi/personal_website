@@ -101,7 +101,7 @@ const csp = [
   "font-src https://fonts.gstatic.com",
   "img-src 'self' data: https://ltzpgwdxosnitvojnbth.supabase.co",
   "media-src 'self'",
-  "connect-src 'self' https://ltzpgwdxosnitvojnbth.supabase.co",
+  "connect-src 'self' https://ltzpgwdxosnitvojnbth.supabase.co https://portfolio-dashboard-three-orpin.vercel.app",
   "object-src 'none'", "base-uri 'self'", "form-action 'self'", "upgrade-insecure-requests",
 ].join('; ');
 swap(/<meta charset="utf-8">/, `<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="${csp}">`);

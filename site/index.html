@@ -1092,16 +1092,21 @@ html.intro-open{overflow:hidden}
   sb('skills?select=name,category,order_index&is_visible=eq.true&order=order_index').then(rows => { if (!rows.length) return; const l = cleanStack(toStack(rows)); if (same(l, LAY)) return; LAY = l; renderStack(); layOn(0); }).catch(() => {});
   sb('experience?select=*&order=order_index').then(rows => { if (!rows.some(r => r.kind === 'clip')) return; const x = cleanSession(toSession(rows)); if (same(x, DATA.session)) return; DATA.session = x; mountSession(x); }).catch(() => {});
 
-  /* ---------- analytics: one row per page/section view, straight into Supabase page_views.
+  /* ---------- analytics: one row per page/section view in Supabase page_views, with an approximate city.
      Visitors can only INSERT there (RLS); nothing can be read back with the public key. No cookies, no IP stored. ---------- */
   if (!/^(localhost|127\.|0\.0\.0\.0|$)/.test(location.hostname) && !/bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent)) {
     let sid; try { sid = sessionStorage.getItem('mk_sid') || crypto.randomUUID(); sessionStorage.setItem('mk_sid', sid); } catch (_) { sid = String(Date.now()) + Math.random(); }
     const ua = navigator.userAgent, device = /iPad|Tablet/i.test(ua) ? 'tablet' : /Mobi|Android|iPhone/i.test(ua) ? 'mobile' : 'desktop';
     let ref = ''; try { ref = document.referrer ? new URL(document.referrer).origin : ''; if (ref === location.origin) ref = ''; } catch (_) {}
-    const sent = new Set();
+    const TRACK = 'https://portfolio-dashboard-three-orpin.vercel.app/api/track', sent = new Set();
     const track = page => { if (!page || sent.has(page)) return; sent.add(page);
-      fetch(SB + 'page_views', {method:'POST', keepalive:true, headers:{apikey:SBK, Authorization:'Bearer ' + SBK, 'Content-Type':'application/json', Prefer:'return=minimal'},
-        body:JSON.stringify({page_path:page, session_id:sid.slice(0, 64), device_type:device, referrer:ref.slice(0, 300) || null, user_agent:ua.slice(0, 400)})}).catch(() => {}); };
+      const row = {page_path:page, session_id:sid.slice(0, 64), device_type:device, referrer:ref.slice(0, 300) || null};
+      // via the dashboard on Vercel, which adds the visitor's city/region/country (no IP is stored);
+      // if that is unreachable, save the visit straight to Supabase without a location
+      const direct = () => fetch(SB + 'page_views', {method:'POST', keepalive:true, headers:{apikey:SBK, Authorization:'Bearer ' + SBK, 'Content-Type':'application/json', Prefer:'return=minimal'},
+        body:JSON.stringify({...row, user_agent:ua.slice(0, 400)})}).catch(() => {});
+      fetch(TRACK, {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body:JSON.stringify(row)})
+        .then(r => { if (!r.ok) direct(); }).catch(direct); };
     track('/home');
     const PAGES = {ahero:'/home', work:'/work', stack:'/stack', exp:'/experience', talk:'/contact', night:'/artist', record:'/artist/music', roll:'/artist/photos', bcontact:'/artist/contact'};
     if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) track(PAGES[e.target.id]); }), {threshold:.35});
