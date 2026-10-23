@@ -77,6 +77,18 @@
    "i": "media/p/sahand.jpg"
   },
   {
+   "t": "EMKAN",
+   "g": [
+    "work",
+    "mobile"
+   ],
+   "k": "Tehran Municipality",
+   "d": "A super app for Tehran Municipality employees, with employee management and services in one place.",
+   "s": "Flutter · REST API",
+   "h": "#84CC16",
+   "i": "media/p/emkan.jpg"
+  },
+  {
    "t": "Foody AI",
    "g": [
     "personal",
@@ -116,6 +128,19 @@
    "u": "https://github.com/MohsenKashefi/codeSnack",
    "h": "#F472B6",
    "i": "media/p/codesnack.jpg"
+  },
+  {
+   "t": "SongBuddy",
+   "g": [
+    "personal",
+    "mobile"
+   ],
+   "k": "Personal · Open source",
+   "d": "A Flutter music companion for streaming and managing playlists.",
+   "s": "Flutter · Node.js · MongoDB",
+   "u": "https://github.com/MohsenKashefi/SongBuddy",
+   "h": "#D946EF",
+   "i": "media/p/songbuddy.jpg"
   }
  ],
  "stack": [
