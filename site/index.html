@@ -146,8 +146,6 @@ section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env
 .intro{position:fixed;inset:0;z-index:200;display:grid;place-items:center;text-align:center;background:radial-gradient(ellipse 60% 50% at 50% 55%,#16262a,#070d0e 75%);color:#F6F2EA;transition:opacity .9s cubic-bezier(.2,.8,.2,1),visibility .9s}
 .intro::after{content:"";position:absolute;inset:-50%;pointer-events:none;opacity:.08;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain .9s steps(6) infinite}
 .intro.out{opacity:0;visibility:hidden}
-.me-note{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:210;background:#0F1B1E;color:#F6F2EA;border:1px solid rgba(243,168,71,.5);border-radius:999px;padding:12px 20px;font-size:.88rem;box-shadow:0 20px 50px rgba(0,0,0,.5);transition:opacity .8s,transform .8s;max-width:calc(100vw - 32px);text-align:center}
-.me-note.out{opacity:0;transform:translate(-50%,10px)}
 .intro .in{position:relative;z-index:1;display:grid;justify-items:center;gap:22px;padding:24px}
 .intro .k{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:#86A09E;margin-right:-.32em}
 .intro .wm{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:400;font-size:clamp(3.6rem,1.4rem + 9vw,8.5rem);line-height:.9;letter-spacing:-.035em;animation:introIn 1.4s cubic-bezier(.2,.8,.2,1) both}
@@ -1096,16 +1094,13 @@ html.intro-open{overflow:hidden}
 
   /* ---------- analytics: one row per page/section view in Supabase page_views, with an approximate city.
      Visitors can only INSERT there (RLS); nothing can be read back with the public key. No cookies, no IP stored. ---------- */
-  // "don't count me": opening the site once with ?me marks this browser as the owner's (?me=0 undoes it)
+  // "don't count me": opening the site once with ?me silently marks this browser as the owner's (?me=0 undoes it)
   let isMe = false;
   try {
     const q = new URLSearchParams(location.search);
     if (q.has('me')) {
       if (q.get('me') === '0') localStorage.removeItem('mk_me'); else localStorage.setItem('mk_me', '1');
       q.delete('me'); history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
-      const note = document.createElement('div'); note.className = 'me-note'; note.setAttribute('role', 'status');
-      note.textContent = localStorage.getItem('mk_me') ? 'This device won’t be counted in your visitors.' : 'This device is counted again.';
-      document.body.appendChild(note); setTimeout(() => note.classList.add('out'), 3200); setTimeout(() => note.remove(), 4200);
     }
     isMe = localStorage.getItem('mk_me') === '1';
   } catch (_) {}
