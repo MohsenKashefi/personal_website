@@ -119,7 +119,7 @@ section.screen{min-height:100svh;scroll-margin-top:0;padding-top:calc(88px + env
   .hd .rt{order:1;gap:10px}
   .hd .menu{order:2;display:block;padding:8px 0 8px 4px}}
 @media (max-width:420px){.switch button{padding:6px 10px;font-size:.74rem}.hd .logo{font-size:1.32rem}.hd .rt{gap:8px}}
-@media (max-width:340px){.switch button{padding:6px 8px;font-size:.7rem}.hd .snd{display:none}}
+@media (max-width:360px){.switch button{padding:6px 7px;font-size:.62rem;letter-spacing:-.02em}.switch{padding:2px}.hd .snd{display:none}.hd .logo{font-size:1.05rem}.hd{gap:4px}.hd .rt{gap:4px}.hd .menu{padding-left:2px}}
 
 /* phones: every section gets the same breathing room, nothing hides under the header */
 @media (max-width:760px){
@@ -553,7 +553,7 @@ html.intro-open{overflow:hidden}
 <body>
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Welcome">
   <div class="in">
-    <p class="k">Engineering · Artist</p>
+    <p class="k">Software Engineer · Artist</p>
     <p class="wm">Mohsen</p>
     <button class="go" id="introGo" type="button">Enter <span class="eqb" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
     <button class="mute" id="introMute" type="button">Enter without sound</button>
@@ -575,7 +575,7 @@ html.intro-open{overflow:hidden}
     <button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Ambient sound" title="Ambient sound"><i></i><i></i><i></i><i></i></button>
     <div class="switch" role="group" aria-label="Choose a side">
       <span class="knob"></span>
-      <button aria-pressed="true" data-go="a">Engineering</button>
+      <button aria-pressed="true" data-go="a">Software Engineer</button>
       <button aria-pressed="false" data-go="b"><span>Artist</span></button>
     </div>
     <a class="talkl a-only" href="#talk">Let’s Talk</a><a class="talkl b-only" href="#bcontact">Let’s Talk</a>
@@ -1041,8 +1041,7 @@ html.intro-open{overflow:hidden}
     let ci = 0; const play = () => { if (ac.state !== 'running') return; const t = ac.currentTime + .05; CH[ci].forEach((f, k) => key(f, t + k * .05)); ci = (ci + 1) % CH.length; };
     play(); const iv = setInterval(play, 4200);
     return {ac, out, lp, ng, iv}; };
-  const ambSide = () => { if (!amb) return; const t = amb.ac.currentTime, b = document.body.classList.contains('artist');
-    amb.lp.frequency.setTargetAtTime(b ? 1150 : 1500, t, 1.2); amb.ng.gain.setTargetAtTime(b ? 1 : 0, t, 1.2); };
+  const ambSide = () => {};                   // the same sound plays on both sides
   const setAmb = on => { ambOn = on; snd.setAttribute('aria-pressed', on);
     try { localStorage.setItem('mk_sound', on ? 'on' : 'off'); } catch (_) {}
     if (on) { try { amb = amb || mkAmb(); amb.ac.resume(); amb.out.gain.setTargetAtTime(AMB_LEVEL, amb.ac.currentTime, 1.2); ambSide(); } catch (_) {} }
